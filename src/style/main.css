@@ -2,6 +2,7 @@
   --bgColor: #08070a;
   --textColor: #b3c9d3;
   --linkColor: var(--textColor);
+  --textColorHover: #ffffff;
 }
 
 @font-face {
@@ -23,10 +24,11 @@ body {
 a {
   color: var(--linkColor);
   text-decoration: underline;
+  margin-top: .2rem;
 }
 
-a:hover {
-    
+a > div:hover {
+    color: var(--textColorHover)
 }
 
 .flex-container {
