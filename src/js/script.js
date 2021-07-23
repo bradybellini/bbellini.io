@@ -16,7 +16,7 @@ var data = [
     (function type() {
       text = devTypeText.slice(0, ++i);
       if (text === devTypeText) return;
-      element.innerHTML = text + `<span class='blinker'>&#32;</span>`;
+      element.innerHTML = text;
       var char = text.slice(-1);
       if (char === "<") isTag = true;
       if (char === ">") isTag = false;
