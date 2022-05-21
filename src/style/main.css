@@ -79,7 +79,7 @@ a > div:hover {
 }
 
 .search-form {
-    width: 20rem;
+    width: 15rem;
     outline: none;
     border: none;
     color: var(--textColor);
