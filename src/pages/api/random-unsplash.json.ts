@@ -5,26 +5,27 @@ import type { APIRoute } from 'astro';
 import { getRandomPhoto } from '../../services/unsplash';
 import { validateOrigin, createForbiddenResponse } from '../../lib/security';
 
-const ACCESS_KEY = import.meta.env.UNSPLASH_ACCESS_KEY || '';
-
 export const GET: APIRoute = async ({ request, locals }) => {
   // Validate origin first
   if (!validateOrigin(request)) {
     return createForbiddenResponse();
   }
 
+  // Access the KV binding and env vars directly from Worker runtime
+  const workerEnv = (locals as any).runtime?.env;
+  
   try {
-    // Access the KV binding directly from locals.runtime.env
-    const kvEnv = (locals as any).runtime?.env;
     const env = {
-      UNSPLASH_CACHE: kvEnv?.UNSPLASH_CACHE,
-      UNSPLASH_ACCESS_KEY: ACCESS_KEY
+      UNSPLASH_CACHE: workerEnv?.UNSPLASH_CACHE,
+      UNSPLASH_ACCESS_KEY: workerEnv?.UNSPLASH_ACCESS_KEY
     };
     
     console.log('API route env check:', {
-      hasRuntimeEnv: !!(locals as any).runtime?.env,
-      hasUnsplashCache: !!kvEnv?.UNSPLASH_CACHE,
-      envKeys: kvEnv ? Object.keys(kvEnv) : []
+      hasRuntimeEnv: !!workerEnv,
+      hasUnsplashCache: !!workerEnv?.UNSPLASH_CACHE,
+      hasUnsplashKey: !!workerEnv?.UNSPLASH_ACCESS_KEY,
+      keyLength: workerEnv?.UNSPLASH_ACCESS_KEY?.length || 0,
+      envKeys: workerEnv ? Object.keys(workerEnv) : []
     });
     
     const photo = await getRandomPhoto(env);
@@ -36,7 +37,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
         author: photo.user.name,
         username: photo.user.username,
         profile: photo.user.links.html,
-        download: `${photo.links.download_location}?client_id=${ACCESS_KEY}`,
+        download: `${photo.links.download_location}?client_id=${workerEnv?.UNSPLASH_ACCESS_KEY}`,
         photoUrl: photo.links.html,
       }),
       { 
