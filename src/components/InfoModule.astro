@@ -3,6 +3,7 @@
 // Standalone info terminal window
 import TerminalWindow from './TerminalWindow.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import WeatherWidget from './WeatherWidget.astro';
 
 interface Props {
   class?: string;
@@ -32,8 +33,7 @@ const { class: className = "" } = Astro.props;
       </div>
       
       <div class="weather-display text-secondary">
-        <span>WEATHER:</span>
-        <span id="weather-info">API NEEDED</span>
+        <WeatherWidget />
       </div>
     </div>
     
@@ -77,22 +77,9 @@ const { class: className = "" } = Astro.props;
     }
   }
   
-  async function updateWeather() {
-    const weatherElement = document.getElementById('weather-info');
-    if (!weatherElement) return;
-    
-    try {
-      // For now, we'll show a placeholder - weather API integration will come later
-      weatherElement.textContent = 'API NEEDED';
-    } catch (error) {
-      weatherElement.textContent = 'ERROR';
-    }
-  }
-  
   // Initialize
   updateClock();
   updateLanguage();
-  updateWeather();
   
   // Update clock every second
   setInterval(updateClock, 1000);

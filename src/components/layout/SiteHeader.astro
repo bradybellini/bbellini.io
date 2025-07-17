@@ -1,6 +1,7 @@
 ---
 // Clean navigation bar without terminal window wrapper
 import ThemeToggle from '../ThemeToggle.astro';
+import WeatherWidget from '../WeatherWidget.astro';
 ---
 
 <header class="w-full max-w-xl mx-auto">
@@ -14,28 +15,26 @@ import ThemeToggle from '../ThemeToggle.astro';
     
     <nav class="flex items-center gap-2">
       <a href="/" class="text-secondary hover:text-accent transition-colors font-sharp text-[8px] border-r border-secondary pr-2">Home</a>
-      <a href="/about" class="text-secondary hover:text-accent transition-colors font-sharp text-[8px] border-r border-secondary pr-2">Startpages</a>
+      <a href="/startpages" class="text-secondary hover:text-accent transition-colors font-sharp text-[8px] border-r border-secondary pr-2">Startpages</a>
+      <a href="/experiments" class="text-secondary hover:text-accent transition-colors font-sharp text-[8px]">Experiments</a>
     </nav>
   </div>
   
   <!-- System Info Bar -->
-  <div class="bg-primary border border-secondary border-t-0 p-1 flex flex-row items-center justify-between gap-2">
-    <div class="flex items-center gap-2">
-      <div class="clock-display text-secondary">
-        <span id="current-time">--:--:--</span>
-        <span class="mx-1">|</span>
-        <span id="current-date">--/--/----</span>
-      </div>
+  <div class="bg-primary border border-secondary border-t-0 px-2 flex flex-row items-center justify-between w-full">
+    <div class="clock-display text-secondary font-sharp-alt text-[8px]">
+      <span id="current-time">--:--:--</span>
+      <span id="timezone">---</span>
       
-      <div class="language-display text-secondary flex-1 flex justify-center">
-        <span>LANG:</span>
-        <span id="browser-language">--</span>
-      </div>
-      
-      <div class="weather-display text-secondary flex-1 flex justify-center">
-        <span>WEATHER:</span>
-        <span id="weather-info">API NEEDED</span>
-      </div>
+      <span id="current-date">--/--/----</span>
+    </div>
+    
+    <div class="language-display text-secondary font-sharp-alt text-[8px]">
+      <span id="browser-language">--</span>
+    </div>
+    
+    <div class="weather-display text-secondary font-sharp-alt text-[8px]">
+      <WeatherWidget />
     </div>
     
     <div class="flex items-center">
@@ -49,6 +48,7 @@ import ThemeToggle from '../ThemeToggle.astro';
     const now = new Date();
     const timeElement = document.getElementById('current-time');
     const dateElement = document.getElementById('current-date');
+    const timezoneElement = document.getElementById('timezone');
     
     if (timeElement) {
       const timeString = now.toLocaleTimeString('en-US', { 
@@ -68,6 +68,13 @@ import ThemeToggle from '../ThemeToggle.astro';
       });
       dateElement.textContent = dateString;
     }
+    
+    if (timezoneElement) {
+      const timezone = now.toLocaleTimeString('en-US', {
+        timeZoneName: 'short'
+      }).split(' ')[2] || 'UTC';
+      timezoneElement.textContent = timezone;
+    }
   }
   
   function updateLanguage() {
@@ -78,22 +85,9 @@ import ThemeToggle from '../ThemeToggle.astro';
     }
   }
   
-  async function updateWeather() {
-    const weatherElement = document.getElementById('weather-info');
-    if (!weatherElement) return;
-    
-    try {
-      // For now, we'll show a placeholder - weather API integration will come later
-      weatherElement.textContent = 'API NEEDED';
-    } catch (error) {
-      weatherElement.textContent = 'ERROR';
-    }
-  }
-  
   // Initialize
   updateClock();
   updateLanguage();
-  updateWeather();
   
   // Update clock every second
   setInterval(updateClock, 1000);

@@ -46,3 +46,7 @@
 - **Main headings**: font-eagle, uppercase, text-xs, color-accent
 - **Subheadings**: font-sharp-alt, text-xs, text-accent (for second headings within terminal windows)
 - **Hierarchy**: Use font-eagle text-xs as the largest text size for main headings
+
+## Icon Usage
+- **Icons**: Use https://teenyicons.com/ for icons
+- **Icon size**: Use h-4 w-4 for icons

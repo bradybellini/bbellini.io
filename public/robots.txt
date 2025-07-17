@@ -1,6 +1,6 @@
-# Hey there, web crawler! Welcome to bradybellini.com. Hope your visit is as fun as it is informative!
+# Hey there, web crawler! Welcome to bbellin.io. Hope your visit is as fun as it is informative!
 # ( 0 _ 0 )
-# Happy exploring!
+# Happy crawling!
 
 User-agent: *
 Allow: /

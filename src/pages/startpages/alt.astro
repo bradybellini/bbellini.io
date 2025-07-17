@@ -1,8 +1,8 @@
 ---
-import RootLayout from "../layouts/RootLayout.astro";
-import InfoModule from "../components/InfoModule.astro";
-import UnsplashModule from "../components/UnsplashModule.astro";
-import LinkGroup from "../components/LinkGroup.astro";
+import RootLayout from "../../layouts/RootLayout.astro";
+import UnsplashModule from "../../components/UnsplashModule.astro";
+import LinkGroup from "../../components/LinkGroup.astro";
+import TerminalWindow from "../../components/TerminalWindow.astro";
 
 // Define links for family/alt page - only Media, Social, News
 const linkData = {
@@ -31,14 +31,19 @@ const linkData = {
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <!-- First column -->
     <div class="space-y-4">
-      <InfoModule />
-      <LinkGroup title="Media" links={linkData.media} />
+      <TerminalWindow title="MEDIA" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.media} />
+      </TerminalWindow>
     </div>
     
     <!-- Second column -->
     <div class="space-y-4">
-      <LinkGroup title="Social" links={linkData.social} />
-      <LinkGroup title="News" links={linkData.news} />
+      <TerminalWindow title="SOCIAL" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.social} />
+      </TerminalWindow>
+      <TerminalWindow title="NEWS" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.news} />
+      </TerminalWindow>
     </div>
     
     <!-- Third column -->

@@ -1,0 +1,147 @@
+---
+const defaultZip = "10001";
+---
+
+<div class="flex items-center gap-1">
+  <!-- ZIP Input (shown initially or when editing) -->
+  <div id="zip-section" class="flex items-center gap-1">
+    <span>ZIP:</span>
+    <input
+      id="zip-input"
+      value={defaultZip}
+      class="bg-primary border border-secondary px-1 w-16 focus:outline-none text-[8px] font-sharp-alt text-secondary"
+      placeholder="20500"
+    />
+    <button
+      id="zip-submit"
+      class="cursor-pointer border border-secondary hover:bg-secondary hover:text-primary transition-colors flex items-center justify-center"
+      title="Submit ZIP"
+    >
+      <svg class="w-3 h-3" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"
+        ><path
+          d="M6.5 10.5l3-3-3-3"
+          stroke="currentColor"
+          stroke-linecap="square"
+        ></path></svg
+      >
+    </button>
+  </div>
+
+  <!-- Temperature Display (shown after ZIP is entered) -->
+  <div id="temp-section" class="hidden">
+    <span
+      id="temp"
+      class="min-w-[30px] cursor-pointer hover:text-accent transition-colors"
+      >--°F</span
+    >
+  </div>
+</div>
+
+<script>
+  (function () {
+    const input = document.getElementById("zip-input") as HTMLInputElement;
+    const tempElement = document.getElementById("temp") as HTMLSpanElement;
+    const zipSection = document.getElementById("zip-section") as HTMLDivElement;
+    const tempSection = document.getElementById(
+      "temp-section"
+    ) as HTMLDivElement;
+    const submitButton = document.getElementById(
+      "zip-submit"
+    ) as HTMLButtonElement;
+
+    if (!input || !tempElement || !zipSection || !tempSection || !submitButton)
+      return;
+
+    const stored = localStorage.getItem("zip");
+
+    function showZipInput() {
+      zipSection.classList.remove("hidden");
+      tempSection.classList.add("hidden");
+      input.focus();
+    }
+
+    function showTemperature() {
+      zipSection.classList.add("hidden");
+      tempSection.classList.remove("hidden");
+    }
+
+    async function fetchWeather(zip: string) {
+      tempElement.textContent = "...";
+      
+      // Check localStorage cache first (10 minute TTL)
+      const cacheKey = `weather:${zip}`;
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) {
+        try {
+          const { temperature, timestamp } = JSON.parse(cached);
+          const isExpired = Date.now() - timestamp > 10 * 60 * 1000; // 10 minutes
+          if (!isExpired) {
+            tempElement.textContent = Math.round(temperature) + "°F";
+            showTemperature();
+            return;
+          }
+        } catch {
+          // Invalid cache entry, remove it
+          localStorage.removeItem(cacheKey);
+        }
+      }
+      
+      // Cache miss or expired - fetch fresh data
+      try {
+        const res = await fetch(`/api/weather?zip=${zip}`);
+        if (!res.ok) throw new Error();
+        const { temperature } = await res.json();
+        
+        // Cache the result
+        localStorage.setItem(cacheKey, JSON.stringify({
+          temperature,
+          timestamp: Date.now()
+        }));
+        
+        tempElement.textContent = Math.round(temperature) + "°F";
+        showTemperature();
+      } catch {
+        tempElement.textContent = "ERR";
+        showTemperature();
+      }
+    }
+
+    // Shared submission function
+    function submitZip() {
+      const zip = input.value.trim();
+      if (zip) {
+        localStorage.setItem("zip", zip);
+        fetchWeather(zip);
+      }
+    }
+
+    // Set initial state
+    if (stored) {
+      input.value = stored;
+      fetchWeather(stored);
+    } else {
+      showZipInput();
+    }
+
+    // Handle ZIP input submission
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        submitZip();
+      }
+    });
+
+    input.addEventListener("blur", () => {
+      submitZip();
+    });
+
+    // Handle check mark button click
+    submitButton.addEventListener("click", () => {
+      submitZip();
+    });
+
+    // Handle temperature click to edit
+    tempElement.addEventListener("click", () => {
+      showZipInput();
+    });
+  })();
+</script>

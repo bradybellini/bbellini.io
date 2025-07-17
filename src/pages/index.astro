@@ -1,16 +1,16 @@
 ---
 import RootLayout from "../layouts/RootLayout.astro";
 import TerminalWindow from "../components/TerminalWindow.astro";
-import InfoModule from "../components/InfoModule.astro";
+// import InfoModule from "../components/InfoModule.astro";
 import UnsplashModule from "../components/UnsplashModule.astro";
 
 ---
 
 <RootLayout title="bbellini.io">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- <div>
       <InfoModule />
-    </div>
+    </div> -->
     
     <div>
       <TerminalWindow 
@@ -19,11 +19,13 @@ import UnsplashModule from "../components/UnsplashModule.astro";
         contentClass="text-[8px]"
         windowClass="w-full"
       >
+						<h2 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1 mb-2">STARTPAGES</h2>
+      
         <div class="directory-links space-y-1">
           <div class="link-item">
             <span class="text-accent">$</span>
             <a 
-              href="/prime" 
+              href="/startpages/prime" 
               class="text-secondary hover:text-accent hover:underline transition-colors font-sharp-alt ml-1"
             >
               PRIME
@@ -32,10 +34,33 @@ import UnsplashModule from "../components/UnsplashModule.astro";
           <div class="link-item">
             <span class="text-accent">$</span>
             <a 
-              href="/alt" 
+              href="/startpages/alt" 
               class="text-secondary hover:text-accent hover:underline transition-colors font-sharp-alt ml-1"
             >
               ALT
+            </a>
+          </div>
+        </div>
+      </TerminalWindow>
+    </div>
+    
+    <div>
+      <TerminalWindow 
+        title="EXPERIMENTS" 
+        titleClass="text-[8px] uppercase"
+        contentClass="text-[8px]"
+        windowClass="w-full"
+      >
+						<h2 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1 mb-2">EXPERIMENTS</h2>
+      
+        <div class="directory-links space-y-1">
+          <div class="link-item">
+            <span class="text-accent">$</span>
+            <a 
+              href="/experiments/weather" 
+              class="text-secondary hover:text-accent hover:underline transition-colors font-sharp-alt ml-1"
+            >
+              WEATHER
             </a>
           </div>
         </div>

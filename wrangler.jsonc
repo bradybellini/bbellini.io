@@ -1,0 +1,20 @@
+{
+  "name": "bbellini-io",
+  "main": "./dist/_worker.js/index.js",
+  "compatibility_date": "2025-07-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "UNSPLASH_CACHE",
+      "id": "4b6263aae5bd4c97aea9fb6a614e7c69",
+      "preview_id": "4b6263aae5bd4c97aea9fb6a614e7c69"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

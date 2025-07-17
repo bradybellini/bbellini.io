@@ -11,8 +11,8 @@ const { class: className = "" } = Astro.props;
 
 <div class={`unsplash-module ${className}`}>
   <div class="terminal-window flex flex-col overflow-x-hidden overflow-y-auto max-w-xl mx-auto w-full">
-    <div class="terminal-title border border-solid border-secondary p-1 font-sharp-alt flex justify-between items-center text-secondary text-[8px] uppercase">
-      <span>RANDOM IMAGE</span>
+    <div id="title-bar" class="terminal-title border border-solid border-secondary p-1 font-sharp-alt flex justify-between items-center text-secondary text-[8px] uppercase">
+      <span>LOADING...</span>
       <div class="flex space-x-1">
         <button class="minimize-button cursor-pointer w-4 h-4 flex items-center justify-center border border-secondary hover:border-accent transition-colors duration-200">
           <span class="minimize-icon">_</span>
@@ -89,6 +89,9 @@ const { class: className = "" } = Astro.props;
 </style>
 
 <script>
+  import '../scripts/unsplash-client.ts';
+  
+  // Loading animation
   let loadingInterval: any;
 
   function startLoadingAnimation() {
@@ -110,51 +113,13 @@ const { class: className = "" } = Astro.props;
     }
   }
 
-  async function loadRandomImage() {
-    const imageEl = document.getElementById('unsplash-image') as HTMLImageElement;
-    const loadingEl = document.getElementById('image-loading');
-    const errorEl = document.getElementById('image-error');
-    
-    if (!imageEl || !loadingEl || !errorEl) return;
-    
-    try {
-      // Show loading
-      loadingEl.style.display = 'flex';
-      errorEl.style.display = 'none';
-      imageEl.style.display = 'none';
-      
-      // Start the loading animation
-      startLoadingAnimation();
-      
-      // For now, we'll use a placeholder service until we get Unsplash API key
-      // Use a larger fixed size that will cover the container properly
-      const response = await fetch('https://picsum.photos/800/400');
-      
-      if (response.ok) {
-        imageEl.src = response.url;
-        imageEl.onload = () => {
-          stopLoadingAnimation();
-          loadingEl.style.display = 'none';
-          imageEl.style.display = 'block';
-        };
-        imageEl.onerror = () => {
-          stopLoadingAnimation();
-          loadingEl.style.display = 'none';
-          errorEl.style.display = 'flex';
-        };
-      } else {
-        throw new Error('Failed to load image');
-      }
-    } catch (error) {
-      stopLoadingAnimation();
-      loadingEl.style.display = 'none';
-      errorEl.style.display = 'flex';
-    }
-  }
+  // Export functions for use by unsplash-client
+  (window as any).startLoadingAnimation = startLoadingAnimation;
+  (window as any).stopLoadingAnimation = stopLoadingAnimation;
   
   // Add minimize/expand functionality
   document.addEventListener('DOMContentLoaded', () => {
-    loadRandomImage();
+    startLoadingAnimation();
     
     const windowEl = document.querySelector('.unsplash-module .terminal-window');
     const minimizeButton = windowEl?.querySelector('.minimize-button');

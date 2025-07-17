@@ -1,16 +1,18 @@
 {
-  "name": "",
+  "name": "bbellini-io",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "preview": "astro preview",
+    "preview": "wrangler dev",
+    "deploy": "wrangler deploy",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "^12.6.0",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.11.2",
     "tailwindcss": "^4.1.11",

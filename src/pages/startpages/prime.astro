@@ -1,0 +1,104 @@
+---
+import RootLayout from "../../layouts/RootLayout.astro";
+import UnsplashModule from "../../components/UnsplashModule.astro";
+import LinkGroup from "../../components/LinkGroup.astro";
+import TerminalWindow from "../../components/TerminalWindow.astro";
+
+// Define all links organized by category
+const linkData = {
+  media: [
+    { name: "HBOMax", url: "https://www.hbomax.com/" },
+    { name: "Peacock", url: "https://www.peacocktv.com/" },
+    { name: "Disney+", url: "https://www.disneyplus.com/" },
+    { name: "Hulu", url: "https://hulu.com" },
+    { name: "Netflix", url: "https://netflix.com" },
+    { name: "YouTube", url: "https://youtube.com" },
+    { name: "Twitch", url: "https://twitch.tv" }
+  ],
+  social: [
+    { name: "X", url: "https://x.com" }
+  ],
+  news: [
+    { name: "WSJ", url: "https://wsj.com" },
+    { name: "Hacker News", url: "https://news.ycombinator.com/" },
+    { name: "Techmeme", url: "https://techmeme.com" },
+    { name: "Newsblur", url: "https://newsblur.com/" }
+  ],
+  tech: [
+    { name: "Fly.io", url: "https://fly.io" },
+    { name: "Cloudflare", url: "https://dash.cloudflare.com/" },
+    { name: "Github", url: "https://github.com/" },
+    { name: "Hover", url: "https://hover.com" },
+    { name: "Park.io", url: "https://park.io/" },
+  ],
+  ai: [
+    { name: "ChatGPT", url: "https://chatgpt.com/" },
+    { name: "Claude", url: "https://claude.ai/" },
+    { name: "Perplexity", url: "https://perplexity.ai" },
+    { name: "Openrouter", url: "https://openrouter.ai/" }
+  ],
+  finance: [
+    { name: "Mercury", url: "https://app.mercury.com/" },
+    { name: "Schwab", url: "https://www.schwab.com/" },
+    { name: "E*TRADE", url: "https://us.etrade.com/home" },
+    { name: "Robinhood", url: "https://robinhood.com/us/en/" },
+    { name: "Coinbase", url: "https://www.coinbase.com/" }
+  ],
+  personal: [
+    { name: "ME", url: "https://bradybellini.com" },
+    { name: "Proton", url: "https://mail.proton.me/" },
+    { name: "Raindrop.io", url: "https://app.raindrop.io/" },
+  ],
+  other: [
+    { name: "Unsplash", url: "https://unsplash.com/" },
+    { name: "Wayback Machine", url: "https://wayback-api.archive.org/" }
+  ],
+  documentation: [
+    { name: "Astro Docs", url: "https://astro.build/" },
+    { name: "Tailwind Docs", url: "https://tailwindcss.com/docs" },
+    { name: "Svelte Docs", url: "https://svelte.dev/docs" }
+  ]
+};
+---
+
+<RootLayout title="Prime - Personal Start Page">
+  
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- First column -->
+    <div class="space-y-4">
+      <TerminalWindow title="MEDIA" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.media} />
+      </TerminalWindow>
+      <TerminalWindow title="AI" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.ai} />
+      </TerminalWindow>
+      <TerminalWindow title="OTHER" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.other} />
+      </TerminalWindow>
+    </div>
+    
+    <!-- Second column -->
+    <div class="space-y-4">
+      <TerminalWindow title="TECH" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.tech} />
+      </TerminalWindow>
+      <TerminalWindow title="PERSONAL" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.personal} />
+      </TerminalWindow>
+      <TerminalWindow title="SOCIAL" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.social} />
+      </TerminalWindow>
+    </div>
+    
+    <!-- Third column -->
+    <div class="space-y-4">
+      <TerminalWindow title="FINANCE" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.finance} />
+      </TerminalWindow>
+      <TerminalWindow title="NEWS" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.news} />
+      </TerminalWindow>
+      <UnsplashModule />
+    </div>
+  </div>
+</RootLayout>

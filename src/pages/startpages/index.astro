@@ -1,0 +1,23 @@
+---
+import RootLayout from "../../layouts/RootLayout.astro";
+import LinkGroup from "../../components/LinkGroup.astro";
+import TerminalWindow from "../../components/TerminalWindow.astro";
+
+// Define available start pages
+const startPages = [
+  { name: "Prime", url: "/startpages/prime" },
+  { name: "Alt", url: "/startpages/alt" }
+];
+---
+
+<RootLayout title="Startpages | bbellini.io">
+  <TerminalWindow 
+    title="STARTPAGES" 
+    titleClass="text-[8px] uppercase"
+    contentClass="text-[8px]"
+    windowClass="max-w-xl"
+  >
+    <h2 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1 mb-2">STARTPAGES</h2>
+    <LinkGroup links={startPages} />
+  </TerminalWindow>
+</RootLayout>
