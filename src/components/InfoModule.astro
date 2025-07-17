@@ -1,0 +1,99 @@
+---
+// InfoModule.astro
+// Standalone info terminal window
+import TerminalWindow from './TerminalWindow.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div class={`info-module ${className}`}>
+  <TerminalWindow 
+    title="SYSTEM INFO" 
+    titleClass="text-[8px] uppercase"
+    contentClass="text-[8px] flex flex-row items-center justify-between gap-4"
+    windowClass="w-full"
+    minimizable={false}
+  >
+    <div class="flex items-center gap-4">
+      <div class="clock-display text-secondary">
+        <span id="current-time">--:--:--</span>
+        <span class="mx-1">|</span>
+        <span id="current-date">--/--/----</span>
+      </div>
+      
+      <div class="language-display text-secondary">
+        <span>LANG:</span>
+        <span id="browser-language">--</span>
+      </div>
+      
+      <div class="weather-display text-secondary">
+        <span>WEATHER:</span>
+        <span id="weather-info">API NEEDED</span>
+      </div>
+    </div>
+    
+    <div class="flex items-center">
+      <ThemeToggle />
+    </div>
+  </TerminalWindow>
+</div>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    const timeElement = document.getElementById('current-time');
+    const dateElement = document.getElementById('current-date');
+    
+    if (timeElement) {
+      const timeString = now.toLocaleTimeString('en-US', { 
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      timeElement.textContent = timeString;
+    }
+    
+    if (dateElement) {
+      const dateString = now.toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric'
+      });
+      dateElement.textContent = dateString;
+    }
+  }
+  
+  function updateLanguage() {
+    const langElement = document.getElementById('browser-language');
+    if (langElement) {
+      const language = navigator.language || navigator.languages?.[0] || 'en-US';
+      langElement.textContent = language.toUpperCase();
+    }
+  }
+  
+  async function updateWeather() {
+    const weatherElement = document.getElementById('weather-info');
+    if (!weatherElement) return;
+    
+    try {
+      // For now, we'll show a placeholder - weather API integration will come later
+      weatherElement.textContent = 'API NEEDED';
+    } catch (error) {
+      weatherElement.textContent = 'ERROR';
+    }
+  }
+  
+  // Initialize
+  updateClock();
+  updateLanguage();
+  updateWeather();
+  
+  // Update clock every second
+  setInterval(updateClock, 1000);
+</script>

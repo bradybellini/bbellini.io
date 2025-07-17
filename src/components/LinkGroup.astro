@@ -1,0 +1,53 @@
+---
+// LinkGroup.astro
+// Component for organizing bookmarks into categories
+import TerminalWindow from './TerminalWindow.astro';
+
+interface Link {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  title: string;
+  links: Link[];
+  class?: string;
+}
+
+const { title, links, class: className = "" } = Astro.props;
+---
+
+<div class={`link-group ${className}`}>
+  <TerminalWindow 
+    title={title.toUpperCase()} 
+    titleClass="text-[8px] uppercase"
+    contentClass="text-[8px]"
+    windowClass="w-full"
+  >
+    <div class="links-container">
+      {links.map((link, index) => (
+        <div class="link-item">
+          <span class="text-accent">$</span>
+          <a 
+            href={link.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="text-secondary hover:text-accent hover:underline transition-colors font-sharp-alt ml-1"
+          >
+            {link.name}
+          </a>
+        </div>
+      ))}
+    </div>
+  </TerminalWindow>
+</div>
+
+<style>
+  .link-item {
+    margin-bottom: 0.25rem;
+  }
+  
+  .link-item:last-child {
+    margin-bottom: 0;
+  }
+</style>

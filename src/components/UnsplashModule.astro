@@ -1,0 +1,184 @@
+---
+// UnsplashModule.astro
+// Square terminal window displaying random Unsplash image
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div class={`unsplash-module ${className}`}>
+  <div class="terminal-window flex flex-col overflow-x-hidden overflow-y-auto max-w-xl mx-auto w-full">
+    <div class="terminal-title border border-solid border-secondary p-1 font-sharp-alt flex justify-between items-center text-secondary text-[8px] uppercase">
+      <span>RANDOM IMAGE</span>
+      <div class="flex space-x-1">
+        <button class="minimize-button cursor-pointer w-4 h-4 flex items-center justify-center border border-secondary hover:border-accent transition-colors duration-200">
+          <span class="minimize-icon">_</span>
+        </button>
+      </div>
+    </div>
+    <div class="terminal-content border border-solid border-secondary border-t-0 min-h-[200px] max-h-[200px] overflow-hidden relative p-0">
+      <img 
+        id="unsplash-image" 
+        src="" 
+        alt="Random from Unsplash" 
+        class="absolute inset-0 w-full h-full object-cover" 
+        style="display: none; object-position: center; min-width: 100%; min-height: 100%;"
+      />
+      <div id="image-loading" class="text-secondary font-sharp-alt text-[8px] uppercase absolute inset-0 flex items-center justify-center bg-primary z-10 h-[200px] w-full">
+        <span>LOADING IMAGE<span id="loading-dots" style="display: inline-block; width: 1.5em; text-align: left;">...</span></span>
+      </div>
+      <div id="image-error" class="text-secondary font-sharp-alt text-[8px] uppercase absolute inset-0 flex items-center justify-center bg-primary z-10 h-[200px] w-full" style="display: none;">
+        IMAGE FAILED
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Ensure image fills container completely */
+  #unsplash-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+
+
+
+
+  /* Terminal-themed transitions */
+  .terminal-content {
+    transition: max-height 80ms, 
+                opacity 80ms,
+                padding 80ms;
+    opacity: 1;
+    overflow: hidden;
+    transform-origin: top;
+  }
+  
+  .terminal-window.is-minimized .terminal-content {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  
+  .terminal-window {
+    transition: min-height 50ms steps(1);
+  }
+  
+  .terminal-window.is-minimized {
+    min-height: auto;
+  }
+
+  .minimize-icon {
+    transition: transform 100ms steps(4);
+  }
+  
+  .terminal-window.is-minimized .minimize-icon {
+    transform: rotate(90deg);
+  }
+</style>
+
+<script>
+  let loadingInterval: any;
+
+  function startLoadingAnimation() {
+    const loadingDots = document.getElementById('loading-dots');
+    if (!loadingDots) return;
+    
+    const states = ['.', '..', '...'];
+    let currentState = 0;
+    
+    loadingInterval = setInterval(() => {
+      loadingDots.textContent = states[currentState];
+      currentState = (currentState + 1) % states.length;
+    }, 250);
+  }
+
+  function stopLoadingAnimation() {
+    if (loadingInterval) {
+      clearInterval(loadingInterval);
+    }
+  }
+
+  async function loadRandomImage() {
+    const imageEl = document.getElementById('unsplash-image') as HTMLImageElement;
+    const loadingEl = document.getElementById('image-loading');
+    const errorEl = document.getElementById('image-error');
+    
+    if (!imageEl || !loadingEl || !errorEl) return;
+    
+    try {
+      // Show loading
+      loadingEl.style.display = 'flex';
+      errorEl.style.display = 'none';
+      imageEl.style.display = 'none';
+      
+      // Start the loading animation
+      startLoadingAnimation();
+      
+      // For now, we'll use a placeholder service until we get Unsplash API key
+      // Use a larger fixed size that will cover the container properly
+      const response = await fetch('https://picsum.photos/800/400');
+      
+      if (response.ok) {
+        imageEl.src = response.url;
+        imageEl.onload = () => {
+          stopLoadingAnimation();
+          loadingEl.style.display = 'none';
+          imageEl.style.display = 'block';
+        };
+        imageEl.onerror = () => {
+          stopLoadingAnimation();
+          loadingEl.style.display = 'none';
+          errorEl.style.display = 'flex';
+        };
+      } else {
+        throw new Error('Failed to load image');
+      }
+    } catch (error) {
+      stopLoadingAnimation();
+      loadingEl.style.display = 'none';
+      errorEl.style.display = 'flex';
+    }
+  }
+  
+  // Add minimize/expand functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    loadRandomImage();
+    
+    const windowEl = document.querySelector('.unsplash-module .terminal-window');
+    const minimizeButton = windowEl?.querySelector('.minimize-button');
+    const windowContent = windowEl?.querySelector('.terminal-content');
+    const minimizeIcon = windowEl?.querySelector('.minimize-icon');
+    
+    if (minimizeButton && windowContent && minimizeIcon && windowEl) {
+      // Function to update the icon based on the minimized state
+      const updateIcon = () => {
+        if (windowEl.classList.contains('is-minimized')) {
+          minimizeIcon.textContent = '+';
+        } else {
+          minimizeIcon.textContent = '_';
+        }
+      };
+      
+      // Set initial icon
+      updateIcon();
+      
+      minimizeButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        windowEl.classList.toggle('is-minimized');
+        updateIcon();
+      });
+    }
+  });
+</script>

@@ -1,0 +1,100 @@
+---
+// Clean navigation bar without terminal window wrapper
+import ThemeToggle from '../ThemeToggle.astro';
+---
+
+<header class="w-full max-w-xl mx-auto">
+  <div class="bg-primary border border-secondary p-2 flex  flex-row items-center justify-between gap-2">
+    <div class="flex items-center">
+      <a href="/" class="font-eagle text-xs text-accent hover:text-secondary transition-colors">
+        <h1 class="lowercase">bbellini.io</h1>
+      </a>
+      <!-- <div class="hidden md:block w-px h-4 bg-secondary"></div> -->
+    </div>
+    
+    <nav class="flex items-center gap-2">
+      <a href="/" class="text-secondary hover:text-accent transition-colors font-sharp text-[8px] border-r border-secondary pr-2">Home</a>
+      <a href="/about" class="text-secondary hover:text-accent transition-colors font-sharp text-[8px] border-r border-secondary pr-2">Startpages</a>
+    </nav>
+  </div>
+  
+  <!-- System Info Bar -->
+  <div class="bg-primary border border-secondary border-t-0 p-1 flex flex-row items-center justify-between gap-2">
+    <div class="flex items-center gap-2">
+      <div class="clock-display text-secondary">
+        <span id="current-time">--:--:--</span>
+        <span class="mx-1">|</span>
+        <span id="current-date">--/--/----</span>
+      </div>
+      
+      <div class="language-display text-secondary flex-1 flex justify-center">
+        <span>LANG:</span>
+        <span id="browser-language">--</span>
+      </div>
+      
+      <div class="weather-display text-secondary flex-1 flex justify-center">
+        <span>WEATHER:</span>
+        <span id="weather-info">API NEEDED</span>
+      </div>
+    </div>
+    
+    <div class="flex items-center">
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    const timeElement = document.getElementById('current-time');
+    const dateElement = document.getElementById('current-date');
+    
+    if (timeElement) {
+      const timeString = now.toLocaleTimeString('en-US', { 
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      timeElement.textContent = timeString;
+    }
+    
+    if (dateElement) {
+      const dateString = now.toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric'
+      });
+      dateElement.textContent = dateString;
+    }
+  }
+  
+  function updateLanguage() {
+    const langElement = document.getElementById('browser-language');
+    if (langElement) {
+      const language = navigator.language || navigator.languages?.[0] || 'en-US';
+      langElement.textContent = language.toUpperCase();
+    }
+  }
+  
+  async function updateWeather() {
+    const weatherElement = document.getElementById('weather-info');
+    if (!weatherElement) return;
+    
+    try {
+      // For now, we'll show a placeholder - weather API integration will come later
+      weatherElement.textContent = 'API NEEDED';
+    } catch (error) {
+      weatherElement.textContent = 'ERROR';
+    }
+  }
+  
+  // Initialize
+  updateClock();
+  updateLanguage();
+  updateWeather();
+  
+  // Update clock every second
+  setInterval(updateClock, 1000);
+</script>

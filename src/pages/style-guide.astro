@@ -1,0 +1,507 @@
+---
+import RootLayout from "../layouts/RootLayout.astro";
+import TerminalWindow from '../components/TerminalWindow.astro';
+---
+
+<RootLayout title="Style Guide | Brady Bellini" description="Design system and component library for bradybellini.com">
+	<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+				
+				<!-- Typography Section -->
+				<TerminalWindow title="TYPOGRAPHY" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">FONT FAMILIES</h3>
+						
+						<div class="space-y-3">
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">font-sharp</h4>
+								<p class="font-sharp text-[8px] text-secondary">$ Navigation links, CTA buttons, icons</p>
+								<code class="text-[8px] text-accent">font-family: 'Sharp PC3K'</code>
+							</div>
+							
+							<div class="border-l-2 border-green pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">font-sharp-alt</h4>
+								<p class="font-sharp-alt text-[8px] text-secondary">$ Body text, UI elements, non-CTA buttons</p>
+								<code class="text-[8px] text-accent">font-family: 'Sharp PC3K Alt'</code>
+							</div>
+							
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">font-eagle</h4>
+								<p class="font-eagle text-[8px] text-secondary uppercase">$ ALL HEADINGS, UPPERCASE, LARGEST TEXT</p>
+								<code class="text-[8px] text-accent">font-family: 'EagleSpCGAAlt2x'</code>
+							</div>
+						</div>
+						
+						<div class="border-t border-secondary pt-3">
+							<h4 class="text-xs font-sharp-alt text-accent mb-2">Typography Rules</h4>
+							<div class="space-y-1 font-sharp-alt">
+								<div class="text-[8px] text-secondary">$ text-[8px] - Default size for all text</div>
+								<div class="text-xs text-secondary">$ text-xs - Only for headings (largest)</div>
+								<div class="text-[8px] text-secondary">$ Terminal window text: ALL CAPS</div>
+								<div class="text-[8px] text-secondary">$ Links: text-accent, underlined on hover</div>
+								<div class="text-[8px] text-secondary">$ Bold replacement: use font-sharp</div>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Colors Section -->
+				<TerminalWindow title="COLORS" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">COLOR PALETTE</h3>
+						
+						<div class="space-y-3">
+							<div class="flex items-center gap-3">
+								<div class="w-6 h-6 bg-primary border border-secondary"></div>
+								<div class="flex-1">
+									<div class="text-[8px] font-sharp text-secondary">primary</div>
+									<div class="text-[8px] font-sharp-alt text-secondary">#09080B</div>
+									<div class="text-[8px] font-sharp-alt text-accent">$ Background, window header text</div>
+								</div>
+							</div>
+							
+							<div class="flex items-center gap-3">
+								<div class="w-6 h-6 bg-secondary border border-secondary"></div>
+								<div class="flex-1">
+									<div class="text-[8px] font-sharp text-secondary">secondary</div>
+									<div class="text-[8px] font-sharp-alt text-secondary">#B3C9D4</div>
+									<div class="text-[8px] font-sharp-alt text-accent">$ Text, window outlines</div>
+								</div>
+							</div>
+							
+							<div class="flex items-center gap-3">
+								<div class="w-6 h-6 bg-accent border border-secondary"></div>
+								<div class="flex-1">
+									<div class="text-[8px] font-sharp text-secondary">accent</div>
+									<div class="text-[8px] font-sharp-alt text-secondary">#EFA319</div>
+									<div class="text-[8px] font-sharp-alt text-accent">$ Highlights, links, headings</div>
+								</div>
+							</div>
+							
+							<div class="flex items-center gap-3">
+								<div class="w-6 h-6 bg-green border border-secondary"></div>
+								<div class="flex-1">
+									<div class="text-[8px] font-sharp text-secondary">green</div>
+									<div class="text-[8px] font-sharp-alt text-secondary">#00FF41</div>
+									<div class="text-[8px] font-sharp-alt text-accent">$ Success states, active indicators</div>
+								</div>
+							</div>
+							
+							<div class="flex items-center gap-3">
+								<div class="w-6 h-6 bg-red border border-secondary"></div>
+								<div class="flex-1">
+									<div class="text-[8px] font-sharp text-secondary">red</div>
+									<div class="text-[8px] font-sharp-alt text-secondary">red</div>
+									<div class="text-[8px] font-sharp-alt text-accent">$ Error states, warnings</div>
+								</div>
+							</div>
+							
+							<div class="flex items-center gap-3">
+								<div class="w-6 h-6 bg-cyan border border-secondary"></div>
+								<div class="flex-1">
+									<div class="text-[8px] font-sharp text-secondary">cyan</div>
+									<div class="text-[8px] font-sharp-alt text-secondary">cyan</div>
+									<div class="text-[8px] font-sharp-alt text-accent">$ Info states, links</div>
+								</div>
+							</div>
+							
+							<div class="flex items-center gap-3">
+								<div class="w-6 h-6 bg-yellow border border-secondary"></div>
+								<div class="flex-1">
+									<div class="text-[8px] font-sharp text-secondary">yellow</div>
+									<div class="text-[8px] font-sharp-alt text-secondary">yellow</div>
+									<div class="text-[8px] font-sharp-alt text-accent">$ Warning states, highlights</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Buttons Section -->
+				<TerminalWindow title="BUTTONS" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">BUTTON VARIANTS</h3>
+						
+						<div class="space-y-3">
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">CTA Button</h4>
+								<button class="bg-accent text-primary hover:bg-transparent hover:text-accent transition-colors text-[8px] border border-accent px-3 py-1 cursor-pointer font-sharp">
+									CTA Button
+								</button>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ Solid → outlined on hover, font-sharp</code>
+							</div>
+							
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Non-CTA Button</h4>
+								<button class="text-accent hover:text-primary transition-colors text-[8px] border border-accent px-3 py-1 hover:bg-accent cursor-pointer font-sharp-alt">
+									Non-CTA Button
+								</button>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ Outlined → solid on hover, font-sharp-alt</code>
+							</div>
+							
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Minimize Button</h4>
+								<button class="cursor-pointer w-4 h-4 flex items-center justify-center border border-secondary hover:border-accent transition-colors duration-200">
+									<span class="text-[8px] font-sharp-alt">_</span>
+								</button>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ Terminal window control</code>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Terminal Window Component -->
+				<TerminalWindow title="TERMINAL_WINDOW" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">TERMINALWINDOW COMPONENT</h3>
+						
+						<div class="space-y-3">
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Props</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li>$ title: string (default: "Terminal")</li>
+									<li>$ titleClass: string (default: "text-[8px]")</li>
+									<li>$ contentClass: string</li>
+									<li>$ windowClass: string</li>
+									<li>$ minimizable: boolean (default: true)</li>
+								</ul>
+							</div>
+							
+							<div class="border-l-2 border-green pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Features</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li>$ Minimizable windows with smooth transitions</li>
+									<li>$ Terminal-themed borders and styling</li>
+									<li>$ Consistent 8px font sizing</li>
+									<li>$ Hover effects on minimize button</li>
+								</ul>
+							</div>
+							
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Example nested window:</h4>
+								<div class="mt-2">
+									<TerminalWindow title="NESTED_DEMO" titleClass="text-[8px]" windowClass="bg-primary/50">
+										<p class="text-[8px] font-sharp-alt text-secondary uppercase">THIS IS A NESTED TERMINAL WINDOW</p>
+									</TerminalWindow>
+								</div>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Content Patterns -->
+				<TerminalWindow title="CONTENT_PATTERNS" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">COMMON CONTENT PATTERNS</h3>
+						
+						<div class="space-y-3">
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-[8px] font-sharp-alt text-secondary">Content Card</h4>
+								<p class="text-[8px] font-sharp-alt text-secondary opacity-75">Description with reduced opacity</p>
+								<span class="text-[8px] font-sharp-alt text-accent">Category • Duration</span>
+							</div>
+							
+							<div class="border-l-2 border-green pl-2">
+								<h4 class="text-[8px] font-sharp-alt text-secondary">Content Card</h4>
+								<p class="text-[8px] font-sharp-alt text-secondary opacity-75">Description with reduced opacity</p>
+								<span class="text-[8px] font-sharp-alt text-green">Category • Duration</span>
+							</div>
+							
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-[8px] font-sharp-alt text-secondary">Content Card</h4>
+								<p class="text-[8px] font-sharp-alt text-secondary opacity-75">Description with reduced opacity</p>
+								<span class="text-[8px] font-sharp-alt text-accent">Category • Duration</span>
+							</div>
+						</div>
+						
+						<div class="border-t border-secondary pt-3">
+							<h4 class="text-xs font-sharp-alt text-accent mb-2">Pattern Notes</h4>
+							<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+								<li>$ Left border colors match category</li>
+								<li>$ Descriptions use opacity-75</li>
+								<li>$ Category text matches border color</li>
+								<li>$ Consistent 2px left border</li>
+							</ul>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Spacing & Layout -->
+				<TerminalWindow title="SPACING_LAYOUT" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">SPACING & LAYOUT</h3>
+						
+						<div class="space-y-3">
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Common Spacing</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li>$ gap-2: Content sections</li>
+									<li>$ gap-2: Form elements</li>
+									<li>$ gap-4: Grid layouts</li>
+									<li>$ p-1: Terminal title padding</li>
+									<li>$ p-2: Terminal content padding</li>
+									<li>$ pl-2: Content card indent</li>
+									<li>$ px-3 py-1: Button padding</li>
+								</ul>
+							</div>
+							
+							<div class="border-l-2 border-green pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Grid Layouts</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li>$ grid-cols-1 lg:grid-cols-2: Responsive 2-column</li>
+									<li>$ max-w-6xl: Content container</li>
+									<li>$ px-4 py-4: Page padding</li>
+								</ul>
+							</div>
+							
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Borders</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li>$ border-secondary: Default borders</li>
+									<li>$ border-l-2: Content card markers</li>
+									<li>$ border-t: Section dividers</li>
+									<li>$ border-b: Heading underlines</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Icons Section -->
+				<TerminalWindow title="ICONS" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">TEENY ICONS</h3>
+						
+						<div class="space-y-3">
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Icon Source</h4>
+								<p class="text-[8px] font-sharp-alt text-secondary">$ All icons must use Teeny Icons library</p>
+								<code class="text-[8px] text-accent">https://teenyicons.com/</code>
+							</div>
+							
+							<div class="border-l-2 border-green pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Common Icons</h4>
+								<div class="space-y-2">
+									<div class="flex items-center gap-2">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 15 15">
+											<path d="M7.5 1l4.5 4v9H9v-3.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V14H3V5z"/>
+										</svg>
+										<code class="text-[8px] text-accent">home</code>
+									</div>
+									<div class="flex items-center gap-2">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 15 15">
+											<path d="M10 6.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0zm-3.5 2.5c.83 0 1.58-.34 2.12-.88l2.88 2.88a.5.5 0 0 0 .7-.7L9.32 7.42A3.5 3.5 0 1 0 6.5 9z"/>
+										</svg>
+										<code class="text-[8px] text-accent">search</code>
+									</div>
+									<div class="flex items-center gap-2">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 15 15">
+											<path d="M1.5 3a.5.5 0 0 0 0 1h12a.5.5 0 0 0 0-1h-12zm0 4a.5.5 0 0 0 0 1h12a.5.5 0 0 0 0-1h-12zm0 4a.5.5 0 0 0 0 1h12a.5.5 0 0 0 0-1h-12z"/>
+										</svg>
+										<code class="text-[8px] text-accent">menu</code>
+									</div>
+									<div class="flex items-center gap-2">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 15 15">
+											<path d="M7.5 0a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM0 14.5A7.5 7.5 0 0 1 15 14.5v.5H0v-.5z"/>
+										</svg>
+										<code class="text-[8px] text-accent">user</code>
+									</div>
+								</div>
+							</div>
+							
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Icon Usage</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li>$ Standard size: w-4 h-4</li>
+									<li>$ Color: currentColor (inherits text color)</li>
+									<li>$ Use with buttons, links, and UI elements</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Form Elements Section -->
+				<TerminalWindow title="FORM_ELEMENTS" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">TERMINAL FORM COMPONENTS</h3>
+						
+						<div class="space-y-3">
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Text Input</h4>
+								<input 
+									type="text" 
+									placeholder="example.input@domain.com" 
+									class="bg-primary border border-secondary text-secondary px-2 py-1 text-[8px] focus:border-accent focus:outline-none w-full"
+								>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ bg-primary border-secondary, focus:border-accent</code>
+							</div>
+							
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Textarea</h4>
+								<textarea 
+									placeholder="Terminal message input..." 
+									rows="3"
+									class="bg-primary border border-secondary text-secondary px-2 py-1 text-[8px] focus:border-accent focus:outline-none w-full resize-none"
+								></textarea>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ Same styling as text input, resize-none</code>
+							</div>
+							
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Select Dropdown</h4>
+								<select class="bg-primary border border-secondary text-secondary px-2 py-1 text-[8px] focus:border-accent focus:outline-none w-full">
+									<option>Select option...</option>
+									<option>Terminal Theme Dark</option>
+									<option>Terminal Theme Light</option>
+									<option>Terminal Theme Auto</option>
+								</select>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ Consistent with input styling</code>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Lists Section -->
+				<TerminalWindow title="LISTS" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">TERMINAL LIST COMPONENTS</h3>
+						
+						<div class="space-y-3">
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Unordered List (Terminal Style)</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li><span class="text-accent">$</span> First list item with dollar bullet</li>
+									<li><span class="text-accent">$</span> Second list item with dollar bullet</li>
+									<li><span class="text-accent">$</span> Third list item with dollar bullet</li>
+								</ul>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ Use &lt;span class="text-accent"&gt;$&lt;/span&gt; for bullets</code>
+							</div>
+							
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Navigation List</h4>
+								<nav class="space-y-1">
+									<a href="#" class="block text-[8px] font-sharp text-secondary hover:text-accent transition-colors"><span class="text-accent">$</span> Home</a>
+									<a href="#" class="block text-[8px] font-sharp text-secondary hover:text-accent transition-colors"><span class="text-accent">$</span> About</a>
+									<a href="#" class="block text-[8px] font-sharp text-secondary hover:text-accent transition-colors"><span class="text-accent">$</span> Projects</a>
+									<a href="#" class="block text-[8px] font-sharp text-secondary hover:text-accent transition-colors"><span class="text-accent">$</span> Contact</a>
+								</nav>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ font-sharp for nav links, hover:text-accent</code>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Tables Section -->
+				<TerminalWindow title="TABLES" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">TABLE VARIANTS</h3>
+						
+						<div class="space-y-3">
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Terminal Table Styling</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li><span class="text-accent">$</span> Headers: text-accent, border-b border-secondary</li>
+									<li><span class="text-accent">$</span> Body cells: text-secondary, py-1 padding</li>
+									<li><span class="text-accent">$</span> Variants: default, striped, bordered, minimal</li>
+									<li><span class="text-accent">$</span> Font: font-sharp-alt, text-[8px]</li>
+								</ul>
+							</div>
+							
+							<div class="border-l-2 border-green pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Example HTML Structure</h4>
+								<pre class="text-[8px] font-sharp-alt text-accent mb-2 whitespace-pre-wrap">
+&lt;table class="w-full text-[8px] font-sharp-alt"&gt;
+  &lt;thead&gt;
+    &lt;tr class="border-b border-secondary"&gt;
+      &lt;th class="text-left text-accent py-1"&gt;Name&lt;/th&gt;
+      &lt;th class="text-left text-accent py-1"&gt;Role&lt;/th&gt;
+      &lt;th class="text-left text-accent py-1"&gt;Status&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody class="text-secondary"&gt;
+    &lt;tr&gt;
+      &lt;td class="py-1"&gt;John Doe&lt;/td&gt;
+      &lt;td class="py-1"&gt;Developer&lt;/td&gt;
+      &lt;td class="py-1 text-accent"&gt;Active&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+								</pre>
+								<div class="text-[8px] font-sharp-alt text-secondary">
+									<p><span class="text-accent">$</span> Framework-agnostic table structure</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- Additional Components Section -->
+				<TerminalWindow title="ADDITIONAL_COMPONENTS" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">SPECIALIZED COMPONENTS</h3>
+						
+						<div class="space-y-3">
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Terminal Link</h4>
+								<a href="#" class="text-[8px] font-sharp-alt text-accent hover:underline">Example terminal link</a>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ text-accent, hover:underline</code>
+							</div>
+							
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Badge/Tag</h4>
+								<div class="mb-3">
+									<span class="text-[8px] bg-accent text-primary px-2 py-1 font-sharp-alt">STATUS</span>
+									<span class="text-[8px] bg-green text-primary px-2 py-1 font-sharp-alt ml-2">ACTIVE</span>
+								</div>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ Colored background, text-primary</code>
+							</div>
+							
+							<div class="space-y-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Alert Box</h4>
+								<div class="border border-accent bg-accent/10 p-2">
+									<p class="text-[8px] font-sharp-alt text-accent">$ System alert: This is a terminal-style notification</p>
+								</div>
+								<code class="block text-[8px] font-sharp-alt text-accent">$ border-accent, bg-accent/10</code>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+				<!-- CSS Variables Section -->
+				<TerminalWindow title="CSS_VARIABLES" titleClass="text-[8px]" contentClass="h-auto">
+					<div class="space-y-4">
+						<h3 class="text-xs font-eagle uppercase text-accent border-b border-secondary pb-1">THEME VARIABLES</h3>
+						
+						<div class="space-y-3">
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Font Variables</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li>$ --font-sharp: 'Sharp PC3K'</li>
+									<li>$ --font-sharp-alt: 'Sharp PC3K Alt'</li>
+									<li>$ --font-eagle: 'EagleSpCGAAlt2x'</li>
+								</ul>
+							</div>
+							
+							<div class="border-l-2 border-green pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Color Variables</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li>$ --color-accent: #EFA319</li>
+									<li>$ --color-primary: #09080B (dark) / #fffbeb (light)</li>
+									<li>$ --color-secondary: #B3C9D4 (dark) / #09080B (light)</li>
+								</ul>
+							</div>
+							
+							<div class="border-l-2 border-accent pl-2">
+								<h4 class="text-xs font-sharp-alt text-accent">Extended Colors</h4>
+								<ul class="text-[8px] font-sharp-alt text-secondary space-y-1">
+									<li>$ --color-green: #00FF41</li>
+									<li>$ --color-red: red</li>
+									<li>$ --color-cyan: cyan</li>
+									<li>$ --color-yellow: yellow</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</TerminalWindow>
+
+	</div>
+</RootLayout>

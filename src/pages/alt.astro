@@ -1,0 +1,49 @@
+---
+import RootLayout from "../layouts/RootLayout.astro";
+import InfoModule from "../components/InfoModule.astro";
+import UnsplashModule from "../components/UnsplashModule.astro";
+import LinkGroup from "../components/LinkGroup.astro";
+
+// Define links for family/alt page - only Media, Social, News
+const linkData = {
+  media: [
+    { name: "HBOMax", url: "https://www.hbomax.com/" },
+    { name: "Peacock", url: "https://www.peacocktv.com/" },
+    { name: "Disney+", url: "https://www.disneyplus.com/" },
+    { name: "Hulu", url: "https://hulu.com" },
+    { name: "Netflix", url: "https://netflix.com" },
+    { name: "YouTube", url: "https://youtube.com" },
+    { name: "Twitch", url: "https://twitch.tv" }
+  ],
+  social: [
+    { name: "X", url: "https://x.com" }
+  ],
+  news: [
+    { name: "WSJ", url: "https://wsj.com" },
+    { name: "Hacker News", url: "https://news.ycombinator.com/" },
+    { name: "Techmeme", url: "https://techmeme.com" },
+    { name: "Newsblur", url: "https://newsblur.com/" }
+  ]
+};
+---
+
+<RootLayout title="Alt - Family Start Page">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- First column -->
+    <div class="space-y-4">
+      <InfoModule />
+      <LinkGroup title="Media" links={linkData.media} />
+    </div>
+    
+    <!-- Second column -->
+    <div class="space-y-4">
+      <LinkGroup title="Social" links={linkData.social} />
+      <LinkGroup title="News" links={linkData.news} />
+    </div>
+    
+    <!-- Third column -->
+    <div class="space-y-4">
+      <UnsplashModule />
+    </div>
+  </div>
+</RootLayout>

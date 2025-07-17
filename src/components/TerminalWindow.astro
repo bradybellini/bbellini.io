@@ -1,0 +1,117 @@
+---
+// TerminalWindow.astro
+// Simplified terminal window component without size props
+
+interface Props {
+  title?: string;
+  titleClass?: string;
+  contentClass?: string;
+  windowClass?: string;
+  minimizable?: boolean;
+}
+
+const {
+  title = "Terminal",
+  titleClass = "text-[8px]",
+  contentClass = "",
+  windowClass = "",
+  minimizable = true,
+} = Astro.props;
+---
+
+<div
+  class={`terminal-window flex flex-col overflow-x-hidden overflow-y-auto max-w-xl mx-auto w-full ${windowClass}`}
+  data-minimizable={minimizable}
+>
+  <div
+    class={`terminal-title border border-solid border-secondary p-1 font-sharp-alt flex justify-between items-center text-secondary text-[8px] ${titleClass}`}
+  >
+    <span>{title}</span>
+    {minimizable && (
+      <div class="flex space-x-1">
+        <button class="minimize-button cursor-pointer w-4 h-4 flex items-center justify-center border border-secondary hover:border-accent transition-colors duration-200">
+          <span class="minimize-icon">_</span>
+        </button>
+      </div>
+    )}
+  </div>
+  <div
+    class={`terminal-content border border-solid border-secondary border-t-0 p-2 text-secondary font-sharp-alt text-[8px] flex-grow ${contentClass}`}
+  >
+    <slot />
+  </div>
+</div>
+
+<style>
+  /* Terminal-themed transitions */
+  .terminal-content {
+    transition: max-height 80ms, 
+                opacity 80ms,
+                padding 80ms;
+    opacity: 1;
+    overflow: hidden;
+    transform-origin: top;
+  }
+  
+  .terminal-window.is-minimized .terminal-content {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  
+  .terminal-window {
+    transition: min-height 50ms steps(1);
+  }
+  
+  .terminal-window.is-minimized {
+    min-height: auto;
+  }
+
+  .minimize-icon {
+    transition: transform 100ms steps(4);
+  }
+  
+  .terminal-window.is-minimized .minimize-icon {
+    transform: rotate(90deg);
+  }
+</style>
+
+<script>
+  // Add minimize/expand functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const windows = document.querySelectorAll('[data-minimizable="true"]');
+    
+    windows.forEach(windowEl => {
+      const minimizeButton = windowEl.querySelector('.minimize-button');
+      const windowContent = windowEl.querySelector('.terminal-content');
+      const minimizeIcon = windowEl.querySelector('.minimize-icon');
+      
+      if (minimizeButton && windowContent && minimizeIcon) {
+        // Function to update the icon based on the minimized state
+        const updateIcon = () => {
+          if (windowEl.classList.contains('is-minimized')) {
+            minimizeIcon.textContent = '+';
+          } else {
+            minimizeIcon.textContent = '_';
+          }
+        };
+        
+        // Check if content should start minimized
+        if (windowContent.classList.contains('hidden') || windowEl.classList.contains('is-minimized')) {
+          windowEl.classList.add('is-minimized');
+          windowContent.classList.remove('hidden');
+          updateIcon();
+        }
+        
+        // Set initial icon
+        updateIcon();
+        
+        minimizeButton.addEventListener('click', () => {
+          windowEl.classList.toggle('is-minimized');
+          updateIcon();
+        });
+      }
+    });
+  });
+</script>

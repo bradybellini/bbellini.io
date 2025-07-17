@@ -1,0 +1,40 @@
+---
+import BaseHead from "../components/layout/BaseHead.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
+import SiteFooter from "../components/layout/SiteFooter.astro";
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Brady Bellini", description = "AI Builder & Analyst" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="bg-primary text-secondary font-sharp-alt text-[8px] min-h-screen">
+    <script>
+      // Initialize theme before content loads to prevent flash
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'system';
+        if (savedTheme !== 'system') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+      })();
+    </script>
+    <div class="max-w-6xl w-full mx-auto px-4 py-4 flex flex-col gap-4">
+      <SiteHeader />
+      
+      <main class="flex-1 flex flex-col gap-4">
+        <slot />
+      </main>
+      
+      <!-- <SiteFooter /> -->
+    </div>
+  </body>
+</html>

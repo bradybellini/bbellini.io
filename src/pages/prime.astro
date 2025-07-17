@@ -1,0 +1,87 @@
+---
+import RootLayout from "../layouts/RootLayout.astro";
+import InfoModule from "../components/InfoModule.astro";
+import UnsplashModule from "../components/UnsplashModule.astro";
+import LinkGroup from "../components/LinkGroup.astro";
+
+// Define all links organized by category
+const linkData = {
+  media: [
+    { name: "HBOMax", url: "https://www.hbomax.com/" },
+    { name: "Peacock", url: "https://www.peacocktv.com/" },
+    { name: "Disney+", url: "https://www.disneyplus.com/" },
+    { name: "Hulu", url: "https://hulu.com" },
+    { name: "Netflix", url: "https://netflix.com" },
+    { name: "YouTube", url: "https://youtube.com" },
+    { name: "Twitch", url: "https://twitch.tv" }
+  ],
+  social: [
+    { name: "X", url: "https://x.com" }
+  ],
+  news: [
+    { name: "WSJ", url: "https://wsj.com" },
+    { name: "Hacker News", url: "https://news.ycombinator.com/" },
+    { name: "Techmeme", url: "https://techmeme.com" },
+    { name: "Newsblur", url: "https://newsblur.com/" }
+  ],
+  tech: [
+    { name: "Raindrop.io", url: "https://app.raindrop.io/" },
+    { name: "Fly.io", url: "https://fly.io" },
+    { name: "Cloudflare", url: "https://dash.cloudflare.com/" },
+    { name: "Github", url: "https://github.com/" },
+    { name: "Hover", url: "https://hover.com" },
+    { name: "Park.io", url: "https://park.io/" }
+  ],
+  ai: [
+    { name: "ChatGPT", url: "https://chatgpt.com/" },
+    { name: "Claude", url: "https://claude.ai/" },
+    { name: "Perplexity", url: "https://perplexity.ai" },
+    { name: "Openrouter", url: "https://openrouter.ai/" }
+  ],
+  finance: [
+    { name: "Mercury", url: "https://app.mercury.com/" },
+    { name: "Schwab", url: "https://www.schwab.com/" },
+    { name: "E*TRADE", url: "https://us.etrade.com/home" },
+    { name: "Robinhood", url: "https://robinhood.com/us/en/" },
+    { name: "Coinbase", url: "https://www.coinbase.com/" },
+    { name: "Proton", url: "https://mail.proton.me/" }
+  ],
+  personal: [
+    { name: "ME", url: "https://bradybellini.com" },
+    { name: "Astro Docs", url: "https://astro.build/" },
+    { name: "Tailwind Docs", url: "https://tailwindcss.com/docs" },
+    { name: "Svelte Docs", url: "https://svelte.dev/docs" }
+  ],
+  other: [
+    { name: "Unsplash", url: "https://unsplash.com/" },
+    { name: "Wayback Machine", url: "https://wayback-api.archive.org/" }
+  ]
+};
+---
+
+<RootLayout title="Prime - Personal Start Page">
+  
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- First column -->
+    <div class="space-y-4">
+      <InfoModule />
+      <LinkGroup title="Media" links={linkData.media} />
+      <LinkGroup title="Social" links={linkData.social} />
+    </div>
+    
+    <!-- Second column -->
+    <div class="space-y-4">
+      <LinkGroup title="News" links={linkData.news} />
+      <LinkGroup title="Tech" links={linkData.tech} />
+      <LinkGroup title="AI" links={linkData.ai} />
+    </div>
+    
+    <!-- Third column -->
+    <div class="space-y-4">
+      <LinkGroup title="Finance" links={linkData.finance} />
+      <LinkGroup title="Personal" links={linkData.personal} />
+      <LinkGroup title="Other" links={linkData.other} />
+      <UnsplashModule />
+    </div>
+  </div>
+</RootLayout>

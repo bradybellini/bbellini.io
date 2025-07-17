@@ -1,0 +1,71 @@
+---
+// Theme toggle component - icon only
+---
+
+<button id="theme-toggle" class="text-secondary hover:text-accent transition-colors p-1" title="Toggle theme">
+  <svg id="theme-icon" class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+    <!-- Default: system/auto icon -->
+    <path d="M7.5 0a7.5 7.5 0 0 0 0 15c4.14 0 7.5-3.36 7.5-7.5S11.64 0 7.5 0zm0 13.5V1.5a6 6 0 0 1 0 12z"/>
+  </svg>
+</button>
+
+<script>
+  import { themeManager } from '../scripts/theme.ts';
+  
+  const toggleButton = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  
+  // SVG paths for different theme icons
+  const icons = {
+    system: 'M2 3a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H8.5l1.5 1.5v1H5v-1L6.5 11H3a1 1 0 0 1-1-1V3zm1 0v7h9V3H3z',
+    light: 'M7.5 1.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V2a.5.5 0 0 1 .5-.5zM3.636 3.636a.5.5 0 0 1 .708 0l.707.707a.5.5 0 0 1-.708.708L3.636 4.343a.5.5 0 0 1 0-.707zM11.364 3.636a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 1 1-.708-.708l.707-.707a.5.5 0 0 1 .708 0zM7.5 5.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-3 2a3 3 0 1 1 6 0 3 3 0 0 1-6 0zM1.5 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1H2a.5.5 0 0 1-.5-.5zM12 7a.5.5 0 0 1 .5.5.5.5 0 0 1-.5.5h-1a.5.5 0 0 1 0-1h1zM3.636 11.364a.5.5 0 0 1 .708 0 .5.5 0 0 1 0 .708l-.707.707a.5.5 0 0 1-.708-.708l.707-.707zM11.364 11.364l.707.707a.5.5 0 0 1-.708.708l-.707-.707a.5.5 0 0 1 .708-.708zM7.5 12a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5z',
+    dark: 'M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z'
+  };
+  
+  const titles = {
+    system: 'Theme: System',
+    light: 'Theme: Light',
+    dark: 'Theme: Dark'
+  };
+  
+  function updateToggleUI() {
+    const currentTheme = themeManager.getTheme();
+    const path = themeIcon?.querySelector('path');
+    
+    if (path) {
+      path.setAttribute('d', icons[currentTheme]);
+    }
+    
+    if (toggleButton) {
+      toggleButton.setAttribute('title', titles[currentTheme]);
+    }
+  }
+  
+  function cycleTheme() {
+    const current = themeManager.getTheme();
+    let next: 'light' | 'dark' | 'system';
+    
+    switch (current) {
+      case 'system':
+        next = 'light';
+        break;
+      case 'light':
+        next = 'dark';
+        break;
+      case 'dark':
+        next = 'system';
+        break;
+    }
+    
+    themeManager.setTheme(next);
+    updateToggleUI();
+  }
+  
+  toggleButton?.addEventListener('click', cycleTheme);
+  
+  // Initial UI update
+  updateToggleUI();
+  
+  // Listen for system theme changes to update UI
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateToggleUI);
+</script>

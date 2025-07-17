@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@font-face {
+	font-family: 'Sharp PC3K';
+	src: url('/fonts/SharpPC3K.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Sharp PC3K 2x';
+	src: url('/fonts/SharpPC3K2x.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Sharp PC3K Alt';
+	src: url('/fonts/SharpPC3KAlt.woff') format('woff');
+}
+
+
+@font-face {
+	font-family: 'Sharp PC3K Alt 2x';
+	src: url('/fonts/EagleSpCGAAlt2.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'EagleSpCGAAlt2x';
+	src: url('/fonts/EagleSpCGAAlt2.woff') format('woff');
+}
+
+@theme {
+	--font-sharp: 'Sharp PC3K';
+	--font-sharp-2x: 'Sharp PC3K 2x';
+	--font-sharp-alt: 'Sharp PC3K Alt';
+	--font-sharp-alt-2x: 'Sharp PC3K Alt 2x';
+	--font-eagle: 'EagleSpCGAAlt2x';
+	
+	--color-accent: #EFA319;
+	--color-green: #00FF41;
+	--color-red: red;
+	--color-cyan: cyan;
+	--color-yellow: yellow;
+}
+
+/* Light theme (default) */
+@media (prefers-color-scheme: light) {
+	@theme {
+		--color-primary:#fffbeb;
+		--color-secondary: #09080B;
+	}
+}
+
+/* Dark theme (default) */
+@media (prefers-color-scheme: dark) {
+	@theme {
+		--color-primary: #09080B;
+		--color-secondary: #B3C9D4;
+	}
+}
+
+/* Manual theme overrides - higher specificity to override media queries */
+html[data-theme="light"] {
+	--color-primary: #fffbeb;
+	--color-secondary: #09080B;
+}
+
+html[data-theme="dark"] {
+	--color-primary: #09080B;
+	--color-secondary: #B3C9D4;
+}
+
+@layer utilities {
+	.scrollbar-thin {
+		scrollbar-width: thin;
+	}
+}
+
+@layer components {
+	.window-title {
+		@apply font-sharp text-[8px];
+	}
+	
+
+}
+
+html {
+	overflow-y: auto;
+	background-color: var(--color-primary);
+	cursor: default;
+	scrollbar-width: thin;
+}
