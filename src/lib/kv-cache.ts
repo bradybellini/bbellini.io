@@ -4,10 +4,20 @@ export interface CacheProvider {
 }
 
 export function cloudflareKV(ns: any): CacheProvider {
+  console.log('Creating cloudflareKV provider with namespace:', !!ns);
+  
   return {
     async get(key) {
       try {
-        return await ns.get(key, { type: 'json' });
+        console.log(`KV get attempt for key: ${key}, namespace available: ${!!ns}`);
+        if (!ns) {
+          console.log('No KV namespace available, returning null');
+          return null;
+        }
+        
+        const result = await ns.get(key, { type: 'json' });
+        console.log(`KV get result for ${key}:`, result ? 'HIT' : 'MISS');
+        return result;
       } catch (error) {
         console.error('KV get error:', error);
         return null;
@@ -15,7 +25,14 @@ export function cloudflareKV(ns: any): CacheProvider {
     },
     async put(key, value, ttl) {
       try {
+        console.log(`KV put attempt for key: ${key}, TTL: ${ttl}, namespace available: ${!!ns}`);
+        if (!ns) {
+          console.log('No KV namespace available, skipping put');
+          return;
+        }
+        
         await ns.put(key, JSON.stringify(value), { expirationTtl: ttl });
+        console.log(`KV put successful for key: ${key}`);
       } catch (error) {
         console.error('KV put error:', error);
       }

@@ -14,11 +14,19 @@ export const GET: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    // Merge runtime env with build-time env for access key
+    // Access the KV binding directly from locals.runtime.env
+    const kvEnv = (locals as any).runtime?.env;
     const env = {
-      ...(locals as any).runtime?.env,
+      UNSPLASH_CACHE: kvEnv?.UNSPLASH_CACHE,
       UNSPLASH_ACCESS_KEY: ACCESS_KEY
     };
+    
+    console.log('API route env check:', {
+      hasRuntimeEnv: !!(locals as any).runtime?.env,
+      hasUnsplashCache: !!kvEnv?.UNSPLASH_CACHE,
+      envKeys: kvEnv ? Object.keys(kvEnv) : []
+    });
+    
     const photo = await getRandomPhoto(env);
 
     return new Response(

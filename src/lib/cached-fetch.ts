@@ -6,12 +6,17 @@ export async function cachedJSON<T>(
   ttl: number,
   supplier: () => Promise<T>
 ): Promise<T> {
+  console.log(`cachedJSON called for key: ${key}`);
+  
   // Try to get from cache first
   const cached = await cache.get<T>(key);
   if (cached) {
+    console.log(`Cache HIT for key: ${key}`);
     return cached;
   }
 
+  console.log(`Cache MISS for key: ${key}, fetching fresh data`);
+  
   // Cache miss - fetch fresh data
   const fresh = await supplier();
   

@@ -31,10 +31,18 @@ type UnsplashPhoto = {
   };
 };
 
-export async function getRandomPhoto(env?: any): Promise<UnsplashPhoto> {
+export async function getRandomPhoto(env?: { UNSPLASH_CACHE?: any }): Promise<UnsplashPhoto> {
+  console.log('getRandomPhoto called with env:', {
+    hasEnv: !!env,
+    hasUnsplashCache: !!env?.UNSPLASH_CACHE,
+    envKeys: env ? Object.keys(env) : []
+  });
+
   const cache = env?.UNSPLASH_CACHE
     ? cloudflareKV(env.UNSPLASH_CACHE)
     : inMemoryCache;
+
+  console.log('Using cache type:', env?.UNSPLASH_CACHE ? 'KV' : 'in-memory');
 
   return cachedJSON(cache, CACHE_KEY, TTL_SECONDS, async () => {
     const response = await fetch(

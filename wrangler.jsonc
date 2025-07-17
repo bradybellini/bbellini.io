@@ -16,5 +16,11 @@
   ],
   "observability": {
     "enabled": true
-  }
+  },
+    "routes": [
+    {
+      "pattern": "bbellini.io",
+      "custom_domain": true
+    }
+  ]
 }
