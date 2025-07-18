@@ -5,6 +5,7 @@ import RootLayout from "../../layouts/RootLayout.astro";
 import PictureModule from "../../components/PictureModule.astro";
 import LinkGroup from "../../components/LinkGroup.astro";
 import TerminalWindow from "../../components/TerminalWindow.astro";
+import SearchForm from "../../components/SearchForm.astro";
 
 // Define links for family/alt page - only Media, Social, News
 const linkData = {
@@ -30,6 +31,8 @@ const linkData = {
 ---
 
 <RootLayout title="Alt - Family Start Page">
+  <SearchForm />
+  
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <!-- First column -->
     <div class="space-y-4">
