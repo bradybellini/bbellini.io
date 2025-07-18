@@ -2,17 +2,25 @@ import type { APIRoute } from 'astro';
 import { validateOrigin, createForbiddenResponse } from '../../lib/security';
 
 const TOMORROW = 'https://api.tomorrow.io/v4/weather/realtime';
-const API_KEY = import.meta.env.TOMORROW_API_KEY;
 
 /*
   GET /api/weather?zip=20500
   → { temperature: 72.4 }
 */
-export const GET: APIRoute = async ({ request, url }) => {
+export const GET: APIRoute = async ({ request, url, locals }) => {
   // Validate origin first
   if (!validateOrigin(request)) {
     return createForbiddenResponse();
   }
+
+  // Access environment variables from Cloudflare Worker runtime
+  const workerEnv = (locals as any).runtime?.env;
+  const API_KEY = workerEnv?.TOMORROW_API_KEY;
+
+  if (!API_KEY) {
+    return new Response('API key not configured', { status: 500 });
+  }
+
   const zip = url.searchParams.get('zip') ?? '20500';
   const location = `${zip} US`;                     // Tomorrow.io accepts this format
 
