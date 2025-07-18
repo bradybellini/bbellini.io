@@ -31,10 +31,13 @@ export function cloudflareKV(ns: any): CacheProvider {
           return;
         }
         
-        await ns.put(key, JSON.stringify(value), { expirationTtl: ttl });
-        console.log(`KV put successful for key: ${key}`);
+        const jsonValue = JSON.stringify(value);
+        console.log(`KV put data size: ${jsonValue.length} chars`);
+        
+        const result = await ns.put(key, jsonValue, { expirationTtl: ttl });
+        console.log(`KV put successful for key: ${key}, result:`, result);
       } catch (error) {
-        console.error('KV put error:', error);
+        console.error('KV put error details:', error);
       }
     },
   };
