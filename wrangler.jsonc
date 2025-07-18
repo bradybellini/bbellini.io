@@ -7,13 +7,7 @@
     "binding": "ASSETS",
     "directory": "./dist"
   },
-  "kv_namespaces": [
-    {
-      "binding": "UNSPLASH_CACHE",
-      "id": "4b6263aae5bd4c97aea9fb6a614e7c69",
-      "preview_id": "4b6263aae5bd4c97aea9fb6a614e7c69"
-    }
-  ],
+
   "observability": {
     "enabled": true
   },

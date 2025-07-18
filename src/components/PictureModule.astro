@@ -1,18 +1,43 @@
 ---
-// UnsplashModule.astro
-// Square terminal window displaying random Unsplash image
+// PictureModule.astro
+// Square terminal window displaying a picture from gen_x_soft collection
 
 interface Props {
   class?: string;
+  imageIndex?: number;
+  alt?: string;
+  title?: string;
 }
 
-const { class: className = "" } = Astro.props;
+const { 
+  class: className = "",
+  imageIndex,
+  alt = "Vibe",
+  title = "VIBE"
+} = Astro.props;
+
+// Available images from gen_x_soft folder
+const genXSoftImages = [
+  "original_2105ae4f5585e0d5180674151ce08bc1.jpg",
+  "original_29b06e018d0dc6838c598ed6dddf12df (1).jpg",
+  "original_2ebfa57dfdd089dab766c9b9933a5414.jpg",
+  "original_4a9fda73ae7fbc32cf466992fa85f312.jpg",
+  "original_63b529b707a41ebcb5adf5402d4e8cac (2).jpg",
+  "original_9002602ca160dd8630e31a0070b46e77.jpg",
+  "original_9c52aab16ff8b970f7c23f9ad041b6dc.jpg",
+  "original_e3c2491d9b1e7c54c8e3b2f26482d7db.jpg"
+];
+
+// Select image - use specified index or random
+const selectedImageIndex = imageIndex !== undefined ? imageIndex : Math.floor(Math.random() * genXSoftImages.length);
+const selectedImage = genXSoftImages[selectedImageIndex % genXSoftImages.length];
+const src = `/img/gen_x_soft/${selectedImage}`;
 ---
 
-<div class={`unsplash-module ${className}`}>
+<div class={`picture-module ${className}`}>
   <div class="terminal-window flex flex-col overflow-x-hidden overflow-y-auto max-w-xl mx-auto w-full">
     <div id="title-bar" class="terminal-title border border-solid border-secondary p-1 font-sharp-alt flex justify-between items-center text-secondary text-[8px] uppercase">
-      <span>LOADING...</span>
+      <span>{title}</span>
       <div class="flex space-x-1">
         <button class="minimize-button cursor-pointer w-4 h-4 flex items-center justify-center border border-secondary hover:border-accent transition-colors duration-200">
           <span class="minimize-icon">_</span>
@@ -20,16 +45,19 @@ const { class: className = "" } = Astro.props;
       </div>
     </div>
     <div class="terminal-content border border-solid border-secondary border-t-0 min-h-[200px] max-h-[200px] overflow-hidden relative p-0">
-      <img 
-        id="unsplash-image" 
-        src="" 
-        alt="Random from Unsplash" 
-        class="absolute inset-0 w-full h-full object-cover" 
-        style="display: none; object-position: center; min-width: 100%; min-height: 100%;"
-      />
-      <div id="image-loading" class="text-secondary font-sharp-alt text-[8px] uppercase absolute inset-0 flex items-center justify-center bg-primary z-10 h-[200px] w-full">
-        <span>LOADING IMAGE<span id="loading-dots" style="display: inline-block; width: 1.5em; text-align: left;">...</span></span>
-      </div>
+      <a href="https://www.are.na/evan-collins-1522646491/gen-x-soft-club" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="absolute inset-0 w-full h-full block"
+         title="https://www.are.na/evan-collins-1522646491/gen-x-soft-club">
+        <img 
+          id="picture-image" 
+          src={src} 
+          alt={alt} 
+          class="w-full h-full object-cover" 
+          style="object-position: center;"
+        />
+      </a>
       <div id="image-error" class="text-secondary font-sharp-alt text-[8px] uppercase absolute inset-0 flex items-center justify-center bg-primary z-10 h-[200px] w-full" style="display: none;">
         IMAGE FAILED
       </div>
@@ -39,20 +67,11 @@ const { class: className = "" } = Astro.props;
 
 <style>
   /* Ensure image fills container completely */
-  #unsplash-image {
+  #picture-image {
     object-fit: cover;
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
   }
-
-
-
-
 
   /* Terminal-themed transitions */
   .terminal-content {
@@ -89,42 +108,14 @@ const { class: className = "" } = Astro.props;
 </style>
 
 <script>
-  import '../scripts/unsplash-client.ts';
-  
-  // Loading animation
-  let loadingInterval: any;
-
-  function startLoadingAnimation() {
-    const loadingDots = document.getElementById('loading-dots');
-    if (!loadingDots) return;
-    
-    const states = ['.', '..', '...'];
-    let currentState = 0;
-    
-    loadingInterval = setInterval(() => {
-      loadingDots.textContent = states[currentState];
-      currentState = (currentState + 1) % states.length;
-    }, 250);
-  }
-
-  function stopLoadingAnimation() {
-    if (loadingInterval) {
-      clearInterval(loadingInterval);
-    }
-  }
-
-  // Export functions for use by unsplash-client
-  (window as any).startLoadingAnimation = startLoadingAnimation;
-  (window as any).stopLoadingAnimation = stopLoadingAnimation;
-  
   // Add minimize/expand functionality
   document.addEventListener('DOMContentLoaded', () => {
-    startLoadingAnimation();
-    
-    const windowEl = document.querySelector('.unsplash-module .terminal-window');
+    const windowEl = document.querySelector('.picture-module .terminal-window');
     const minimizeButton = windowEl?.querySelector('.minimize-button');
     const windowContent = windowEl?.querySelector('.terminal-content');
     const minimizeIcon = windowEl?.querySelector('.minimize-icon');
+    const imageEl = document.getElementById('picture-image') as HTMLImageElement;
+    const errorEl = document.getElementById('image-error');
     
     if (minimizeButton && windowContent && minimizeIcon && windowEl) {
       // Function to update the icon based on the minimized state
@@ -144,6 +135,13 @@ const { class: className = "" } = Astro.props;
         windowEl.classList.toggle('is-minimized');
         updateIcon();
       });
+    }
+
+    // Handle image error
+    if (imageEl && errorEl) {
+      imageEl.onerror = () => {
+        errorEl.style.display = 'flex';
+      };
     }
   });
 </script>

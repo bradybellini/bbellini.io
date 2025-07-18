@@ -2,7 +2,7 @@
 export const prerender = true; // Static pre-rendering for this page
 
 import RootLayout from "../../layouts/RootLayout.astro";
-import UnsplashModule from "../../components/UnsplashModule.astro";
+import PictureModule from "../../components/PictureModule.astro";
 import LinkGroup from "../../components/LinkGroup.astro";
 import TerminalWindow from "../../components/TerminalWindow.astro";
 
@@ -100,7 +100,7 @@ const linkData = {
       <TerminalWindow title="NEWS" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
         <LinkGroup links={linkData.news} />
       </TerminalWindow>
-      <UnsplashModule />
+      <PictureModule />
     </div>
   </div>
 </RootLayout>
