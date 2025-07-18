@@ -2,47 +2,56 @@
 // Search form component for Brave search
 ---
 
-<div class="w-full max-w-xl mx-auto mb-4">
-  <form 
-    id="search-form" 
-    action="https://search.brave.com/search" 
-    method="get" 
+<div class="w-full max-w-xl mx-auto">
+  <form
+    id="search-form"
+    action="https://search.brave.com/search"
+    method="get"
     target="_blank"
-    class="bg-primary border border-secondary p-2 flex items-center gap-2"
+    class="bg-primary border border-secondary p-1 flex items-center gap-1"
   >
     <input
       id="search-input"
       name="q"
       type="text"
       placeholder="Search..."
-      class="flex-1 bg-primary border border-secondary px-2 py-1 focus:outline-none text-[8px] font-sharp-alt text-secondary"
+      class="flex-1 bg-primary border border-secondary p-1 focus:outline-none focus:border-accent text-[8px] font-sharp-alt text-secondary"
       autocomplete="off"
     />
     <button
       type="submit"
-      class="cursor-pointer border border-secondary hover:bg-secondary hover:text-primary transition-colors flex items-center justify-center"
+      class="cursor-pointer p-0.5 border border-secondary hover:bg-secondary hover:text-primary transition-colors flex items-center justify-center"
       title="Search"
     >
-      <svg class="w-4 h-4" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path 
-          d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z" 
-          fill="currentColor"
-        />
-      </svg>
+      <svg
+      class="w-4 h-4"
+        viewBox="0 0 15 15"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        width="15"
+        height="15"
+        ><path
+          d="M8.5 8.5l2 2M7 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"
+          stroke="currentColor"></path></svg
+      >
     </button>
   </form>
 </div>
 
 <script>
   (function () {
-    const searchInput = document.getElementById("search-input") as HTMLInputElement;
-    const searchForm = document.getElementById("search-form") as HTMLFormElement;
-    
+    const searchInput = document.getElementById(
+      "search-input"
+    ) as HTMLInputElement;
+    const searchForm = document.getElementById(
+      "search-form"
+    ) as HTMLFormElement;
+
     if (!searchInput || !searchForm) return;
-    
+
     // Auto-focus on the search input when the page loads
     searchInput.focus();
-    
+
     // Handle form submission
     searchForm.addEventListener("submit", (e) => {
       const query = searchInput.value.trim();
@@ -50,6 +59,10 @@
         e.preventDefault();
         return;
       }
+      // Clear the search box after submission
+      setTimeout(() => {
+        searchInput.value = "";
+      }, 100);
       // Form will naturally submit to Brave search with the query parameter
     });
   })();

@@ -16,13 +16,7 @@ export function validateOrigin(request: Request): boolean {
   const referer = request.headers.get('referer');
   const userAgent = request.headers.get('user-agent');
   
-  // Debug logging (remove after fixing)
-  console.log('Origin validation debug:', {
-    origin,
-    referer,
-    userAgent,
-    url: request.url
-  });
+
   
   // Check origin header first (more reliable)
   if (origin && allowedOrigins.includes(origin)) {
