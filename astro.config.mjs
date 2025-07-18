@@ -11,7 +11,7 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://bbellini.io',
-  output: 'server',
+  output: 'server', // Keep server for now, will prerender specific pages
   integrations: [],
 
   vite: {

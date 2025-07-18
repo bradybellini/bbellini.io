@@ -1,4 +1,6 @@
 ---
+export const prerender = true; // Static pre-rendering for this page
+
 import RootLayout from "../../layouts/RootLayout.astro";
 import UnsplashModule from "../../components/UnsplashModule.astro";
 import LinkGroup from "../../components/LinkGroup.astro";
@@ -48,7 +50,7 @@ const linkData = {
     
     <!-- Third column -->
     <div class="space-y-4">
-      <UnsplashModule />
+      <UnsplashModule client:visible />
     </div>
   </div>
 </RootLayout>

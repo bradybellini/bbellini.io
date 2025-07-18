@@ -34,11 +34,11 @@ import WeatherWidget from '../WeatherWidget.astro';
     </div>
     
     <div class="weather-display text-secondary font-sharp-alt text-[8px]">
-      <WeatherWidget />
+      <WeatherWidget client:load />
     </div>
     
     <div class="flex items-center">
-      <ThemeToggle />
+      <ThemeToggle client:load />
     </div>
   </div>
 </header>
