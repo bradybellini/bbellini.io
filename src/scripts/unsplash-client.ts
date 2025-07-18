@@ -165,6 +165,6 @@ async function fetchAndDisplayPhoto(): Promise<void> {
 document.addEventListener('DOMContentLoaded', () => {
   fetchAndDisplayPhoto();
   
-  // Refresh image every 2 minutes
-  setInterval(fetchAndDisplayPhoto, REFRESH_INTERVAL);
+  // Remove auto-refresh - let user navigate/refresh manually
+  // setInterval(fetchAndDisplayPhoto, REFRESH_INTERVAL);
 });

@@ -20,10 +20,13 @@ export async function cachedJSON<T>(
   // Cache miss - fetch fresh data
   const fresh = await supplier();
   
-  // Store in cache (fire & forget - don't wait for completion)
-  cache.put(key, fresh, ttl).catch(error => {
+  // Store in cache and wait for completion to ensure it's properly cached
+  try {
+    await cache.put(key, fresh, ttl);
+    console.log(`Successfully cached key: ${key}`);
+  } catch (error) {
     console.error('Cache put failed:', error);
-  });
+  }
   
   return fresh;
 }

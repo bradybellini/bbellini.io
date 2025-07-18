@@ -43,7 +43,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
       { 
         headers: { 
           'Content-Type': 'application/json', 
-          'Cache-Control': 'no-store' 
+          'Cache-Control': 'public, max-age=120' 
         } 
       }
     );
