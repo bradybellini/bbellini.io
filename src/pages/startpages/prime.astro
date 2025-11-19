@@ -19,7 +19,10 @@ const linkData = {
     { name: "Twitch", url: "https://twitch.tv" }
   ],
   social: [
-    { name: "X", url: "https://x.com" }
+    { name: "X", url: "https://x.com" },
+    { name: "LinkedIn", url: "https://linkedin.com" },
+    { name: "Are.na", url: "https://are.na" },
+    { name: "Pinterest", url: "https://pinterest.com" }
   ],
   news: [
     { name: "WSJ", url: "https://wsj.com" },
@@ -37,29 +40,38 @@ const linkData = {
   ai: [
     { name: "ChatGPT", url: "https://chatgpt.com/" },
     { name: "Claude", url: "https://claude.ai/" },
-    { name: "Perplexity", url: "https://perplexity.ai" },
-    { name: "Openrouter", url: "https://openrouter.ai/" }
+    { name: "Openrouter", url: "https://openrouter.ai/" },
+    { name: "Claude Console", url: "https://console.anthropic.com/dashboard" },
+    { name: "AMP Code", url: "https://ampcode.com/" }
   ],
   finance: [
     { name: "Mercury", url: "https://app.mercury.com/" },
     { name: "Schwab", url: "https://www.schwab.com/" },
     { name: "E*TRADE", url: "https://us.etrade.com/home" },
     { name: "Robinhood", url: "https://robinhood.com/us/en/" },
-    { name: "Coinbase", url: "https://www.coinbase.com/" }
   ],
   personal: [
     { name: "ME", url: "https://bradybellini.com" },
     { name: "Proton", url: "https://mail.proton.me/" },
     { name: "Raindrop.io", url: "https://app.raindrop.io/" },
+    { name: "Planetary Industries", url: "https://planetaryindustries.io/" }
   ],
   other: [
     { name: "Unsplash", url: "https://unsplash.com/" },
     { name: "Wayback Machine", url: "https://wayback-api.archive.org/" }
+    
   ],
   documentation: [
     { name: "Astro Docs", url: "https://astro.build/" },
     { name: "Tailwind Docs", url: "https://tailwindcss.com/docs" },
-    { name: "Svelte Docs", url: "https://svelte.dev/docs" }
+    { name: "Svelte Docs", url: "https://svelte.dev/docs" },
+    { name: "Go Docs", url: "https://golang.org/doc/" },
+    { name: "Anthropic Docs", url: "https://docs.anthropic.com/" }
+  ],
+  ecommerce: [
+    { name: "Amazon", url: "https://www.amazon.com/" },
+    { name: "Etsy", url: "https://www.etsy.com/" },
+    { name: "Costco", url: "https://www.costco.com/" }
   ]
 };
 ---
@@ -89,9 +101,8 @@ const linkData = {
       <TerminalWindow title="PERSONAL" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
         <LinkGroup links={linkData.personal} />
       </TerminalWindow>
-      <TerminalWindow title="SOCIAL" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
-        <LinkGroup links={linkData.social} />
-      </TerminalWindow>
+            <PictureModule />
+
     </div>
     
     <!-- Third column -->
@@ -102,7 +113,12 @@ const linkData = {
       <TerminalWindow title="NEWS" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
         <LinkGroup links={linkData.news} />
       </TerminalWindow>
-      <PictureModule />
+      <TerminalWindow title="ECOMMERCE" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.ecommerce} />
+      </TerminalWindow>
+      <TerminalWindow title="SOCIAL" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.social} />
+      </TerminalWindow>
     </div>
   </div>
 </RootLayout>

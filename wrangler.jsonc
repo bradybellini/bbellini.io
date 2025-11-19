@@ -1,7 +1,7 @@
 {
   "name": "bbellini-io",
   "main": "./dist/_worker.js/index.js",
-  "compatibility_date": "2025-07-17",
+  "compatibility_date": "2025-11-18",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "binding": "ASSETS",
