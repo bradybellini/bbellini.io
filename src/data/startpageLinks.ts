@@ -22,8 +22,7 @@ const newsLinks: Link[] = [
   { name: "Hacker News", url: "https://news.ycombinator.com/" },
   { name: "Techmeme", url: "https://techmeme.com" },
   { name: "Mediagazer", url: "https://www.mediagazer.com/" },
-  { name: "Memeorandum", url: "https://www.memeorandum.com/" },
-  { name: "Newsblur", url: "https://newsblur.com/" }
+  { name: "Memeorandum", url: "https://www.memeorandum.com/" }
 ];
 
 export const primeLinkData = {
