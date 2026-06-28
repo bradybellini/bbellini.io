@@ -14,10 +14,7 @@ export function validateOrigin(request: Request): boolean {
 
   const origin = request.headers.get('origin');
   const referer = request.headers.get('referer');
-  const userAgent = request.headers.get('user-agent');
-  
 
-  
   // Check origin header first (more reliable)
   if (origin && allowedOrigins.includes(origin)) {
     return true;
@@ -38,7 +35,6 @@ export function validateOrigin(request: Request): boolean {
   }
   
   // Allow same-origin requests (when origin header is missing)
-  const requestUrl = new URL(request.url);
   if (!origin && !referer) {
     // This is likely a same-origin request
     return true;

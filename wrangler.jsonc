@@ -1,7 +1,6 @@
 {
   "name": "bbellini-io",
-  "main": "./dist/_worker.js/index.js",
-  "compatibility_date": "2025-11-18",
+  "compatibility_date": "2026-06-28",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "binding": "ASSETS",
@@ -11,7 +10,7 @@
   "observability": {
     "enabled": true
   },
-    "routes": [
+  "routes": [
     {
       "pattern": "bbellini.io",
       "custom_domain": true

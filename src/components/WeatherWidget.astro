@@ -38,6 +38,14 @@ const defaultZip = "10001";
 </div>
 
 <script>
+  interface WeatherResponse {
+    temperature: number;
+  }
+
+  interface CachedWeather extends WeatherResponse {
+    timestamp: number;
+  }
+
   (function () {
     const input = document.getElementById("zip-input") as HTMLInputElement;
     const tempElement = document.getElementById("temp") as HTMLSpanElement;
@@ -73,9 +81,10 @@ const defaultZip = "10001";
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
         try {
-          const { temperature, timestamp } = JSON.parse(cached);
+          const { temperature, timestamp } = JSON.parse(cached) as Partial<CachedWeather>;
+          if (typeof timestamp !== "number") throw new Error();
           const isExpired = Date.now() - timestamp > 10 * 60 * 1000; // 10 minutes
-          if (!isExpired) {
+          if (!isExpired && typeof temperature === "number") {
             tempElement.textContent = Math.round(temperature) + "°F";
             showTemperature();
             return;
@@ -90,7 +99,8 @@ const defaultZip = "10001";
       try {
         const res = await fetch(`/api/weather?zip=${zip}`);
         if (!res.ok) throw new Error();
-        const { temperature } = await res.json();
+        const { temperature } = await res.json() as WeatherResponse;
+        if (typeof temperature !== "number") throw new Error();
         
         // Cache the result
         localStorage.setItem(cacheKey, JSON.stringify({

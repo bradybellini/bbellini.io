@@ -1,33 +1,10 @@
 ---
-export const prerender = true; // Static pre-rendering for this page
-
 import RootLayout from "../../layouts/RootLayout.astro";
 import PictureModule from "../../components/PictureModule.astro";
 import LinkGroup from "../../components/LinkGroup.astro";
 import TerminalWindow from "../../components/TerminalWindow.astro";
 import SearchForm from "../../components/SearchForm.astro";
-
-// Define links for family/alt page - only Media, Social, News
-const linkData = {
-  media: [
-    { name: "HBOMax", url: "https://www.hbomax.com/" },
-    { name: "Peacock", url: "https://www.peacocktv.com/" },
-    { name: "Disney+", url: "https://www.disneyplus.com/" },
-    { name: "Hulu", url: "https://hulu.com" },
-    { name: "Netflix", url: "https://netflix.com" },
-    { name: "YouTube", url: "https://youtube.com" },
-    { name: "Twitch", url: "https://twitch.tv" }
-  ],
-  social: [
-    { name: "X", url: "https://x.com" }
-  ],
-  news: [
-    { name: "WSJ", url: "https://wsj.com" },
-    { name: "Hacker News", url: "https://news.ycombinator.com/" },
-    { name: "Techmeme", url: "https://techmeme.com" },
-    { name: "Newsblur", url: "https://newsblur.com/" }
-  ]
-};
+import { altLinkData as linkData } from "../../data/startpageLinks";
 ---
 
 <RootLayout title="Alt - Family Start Page">
