@@ -5,15 +5,15 @@ import WeatherWidget from '../WeatherWidget.astro';
 ---
 
 <header class="w-full max-w-xl mx-auto">
-  <div class="bg-primary border border-secondary p-2 flex  flex-row items-center justify-between gap-2">
+  <div class="bg-primary border border-secondary p-2 flex flex-row flex-wrap items-center justify-between gap-2">
     <div class="flex items-center">
-      <a href="/" class="font-eagle text-xs text-accent hover:text-secondary transition-colors">
+      <a href="/" class="font-eagle text-xs text-accent hover:text-secondary transition-colors shrink-0">
         <h1 class="lowercase">bbellini.io</h1>
       </a>
       <!-- <div class="hidden md:block w-px h-4 bg-secondary"></div> -->
     </div>
     
-    <nav class="flex items-center gap-2">
+    <nav class="flex items-center gap-2 whitespace-nowrap">
       <a href="/" class="text-secondary hover:text-accent transition-colors font-sharp text-[8px] border-r border-secondary pr-2">Home</a>
       <a href="/startpages" class="text-secondary hover:text-accent transition-colors font-sharp text-[8px] border-r border-secondary pr-2">Startpages</a>
       <a href="/experiments" class="text-secondary hover:text-accent transition-colors font-sharp text-[8px]">Experiments</a>
@@ -21,19 +21,19 @@ import WeatherWidget from '../WeatherWidget.astro';
   </div>
   
   <!-- System Info Bar -->
-  <div class="bg-primary border border-secondary border-t-0 px-2 flex flex-row items-center justify-between w-full">
-    <div class="clock-display text-secondary font-sharp-alt text-[8px]">
+  <div class="bg-primary border border-secondary border-t-0 px-2 py-1 flex flex-row flex-wrap items-center justify-between gap-x-2 gap-y-1 w-full">
+    <div class="clock-display text-secondary font-sharp-alt text-[8px] flex items-center gap-1 whitespace-nowrap">
       <span id="current-time">--:--:--</span>
       <span id="timezone">---</span>
-      
+      <span aria-hidden="true">|</span>
       <span id="current-date">--/--/----</span>
     </div>
     
-    <div class="language-display text-secondary font-sharp-alt text-[8px]">
+    <div class="language-display text-secondary font-sharp-alt text-[8px] whitespace-nowrap">
       <span id="browser-language">--</span>
     </div>
     
-    <div class="weather-display text-secondary font-sharp-alt text-[8px]">
+    <div class="weather-display text-secondary font-sharp-alt text-[8px] whitespace-nowrap">
       <WeatherWidget />
     </div>
     
