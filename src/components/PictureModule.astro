@@ -27,13 +27,20 @@ const genXSoftImages = [
   "original_e3c2491d9b1e7c54c8e3b2f26482d7db.jpg"
 ];
 
-// Select image - use specified index or random
-const selectedImageIndex = imageIndex !== undefined ? imageIndex : Math.floor(Math.random() * genXSoftImages.length);
-const selectedImage = genXSoftImages[selectedImageIndex % genXSoftImages.length];
-const src = `/img/gen_x_soft/${selectedImage}`;
+const imageSources = genXSoftImages.map((image) => `/img/gen_x_soft/${image}`);
+const normalizeImageIndex = (index: number) => ((index % imageSources.length) + imageSources.length) % imageSources.length;
+const selectedImageIndex = normalizeImageIndex(imageIndex ?? 0);
+const src = imageSources[selectedImageIndex];
+const shouldRandomizeImage = imageIndex === undefined;
+const imageStorageKey = `picture-module-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "default"}`;
 ---
 
-<div class={`picture-module ${className}`}>
+<div
+  class={`picture-module ${className}`}
+  data-picture-images={JSON.stringify(imageSources)}
+  data-randomize-image={shouldRandomizeImage ? "true" : "false"}
+  data-picture-key={imageStorageKey}
+>
   <div class="terminal-window flex flex-col overflow-x-hidden overflow-y-auto max-w-xl mx-auto w-full">
     <div id="title-bar" class="terminal-title border border-solid border-secondary p-1 font-sharp-alt flex justify-between items-center text-secondary text-[8px] uppercase">
       <span>{title}</span>
@@ -50,14 +57,14 @@ const src = `/img/gen_x_soft/${selectedImage}`;
          class="absolute inset-0 w-full h-full block"
          title="https://www.are.na/evan-collins-1522646491/gen-x-soft-club">
         <img 
-          id="picture-image" 
+          data-picture-image
           src={src} 
           alt={alt} 
           class="w-full h-full object-cover" 
           style="object-position: center;"
         />
       </a>
-      <div id="image-error" class="text-secondary font-sharp-alt text-[8px] uppercase absolute inset-0 flex items-center justify-center bg-primary z-10 h-[200px] w-full" style="display: none;">
+      <div data-image-error class="text-secondary font-sharp-alt text-[8px] uppercase absolute inset-0 flex items-center justify-center bg-primary z-10 h-[200px] w-full" style="display: none;">
         IMAGE FAILED
       </div>
     </div>
@@ -66,7 +73,7 @@ const src = `/img/gen_x_soft/${selectedImage}`;
 
 <style>
   /* Ensure image fills container completely */
-  #picture-image {
+  [data-picture-image] {
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -107,40 +114,108 @@ const src = `/img/gen_x_soft/${selectedImage}`;
 </style>
 
 <script>
-  // Add minimize/expand functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const windowEl = document.querySelector('.picture-module .terminal-window');
-    const minimizeButton = windowEl?.querySelector('.minimize-button');
-    const windowContent = windowEl?.querySelector('.terminal-content');
-    const minimizeIcon = windowEl?.querySelector('.minimize-icon');
-    const imageEl = document.getElementById('picture-image') as HTMLImageElement;
-    const errorEl = document.getElementById('image-error');
-    
-    if (minimizeButton && windowContent && minimizeIcon && windowEl) {
-      // Function to update the icon based on the minimized state
-      const updateIcon = () => {
-        if (windowEl.classList.contains('is-minimized')) {
-          minimizeIcon.textContent = '+';
-        } else {
-          minimizeIcon.textContent = '_';
-        }
-      };
-      
-      // Set initial icon
-      updateIcon();
-      
-      minimizeButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        windowEl.classList.toggle('is-minimized');
-        updateIcon();
-      });
+  function getImageSources(moduleEl: HTMLElement) {
+    const rawImages = moduleEl.dataset.pictureImages;
+    if (!rawImages) return [];
+
+    try {
+      const images = JSON.parse(rawImages);
+      return Array.isArray(images)
+        ? images.filter((image): image is string => typeof image === 'string')
+        : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function getStoredImageIndex(storageKey: string) {
+    try {
+      const storedIndex = sessionStorage.getItem(storageKey);
+      if (storedIndex === null) return Number.NaN;
+      return Number(storedIndex);
+    } catch {
+      return Number.NaN;
+    }
+  }
+
+  function setStoredImageIndex(storageKey: string, index: number) {
+    try {
+      sessionStorage.setItem(storageKey, String(index));
+    } catch {
+      // Storage can be unavailable in privacy modes; the image should still randomize.
+    }
+  }
+
+  function getRefreshImageIndex(moduleEl: HTMLElement, imageCount: number) {
+    if (imageCount <= 1) return 0;
+
+    const storageKey = `${moduleEl.dataset.pictureKey || 'picture-module'}:last-image`;
+    const previousIndex = getStoredImageIndex(storageKey);
+    let selectedIndex = Math.floor(Math.random() * imageCount);
+
+    if (
+      Number.isInteger(previousIndex) &&
+      previousIndex >= 0 &&
+      previousIndex < imageCount &&
+      selectedIndex === previousIndex
+    ) {
+      selectedIndex = (selectedIndex + 1 + Math.floor(Math.random() * (imageCount - 1))) % imageCount;
     }
 
-    // Handle image error
-    if (imageEl && errorEl) {
-      imageEl.onerror = () => {
-        errorEl.style.display = 'flex';
-      };
-    }
-  });
+    setStoredImageIndex(storageKey, selectedIndex);
+    return selectedIndex;
+  }
+
+  // Add minimize/expand functionality
+  const initPictureModules = () => {
+    document.querySelectorAll<HTMLElement>('.picture-module').forEach((moduleEl) => {
+      const windowEl = moduleEl.querySelector('.terminal-window');
+      const minimizeButton = windowEl?.querySelector('.minimize-button');
+      const windowContent = windowEl?.querySelector('.terminal-content');
+      const minimizeIcon = windowEl?.querySelector('.minimize-icon');
+      const imageEl = moduleEl.querySelector<HTMLImageElement>('[data-picture-image]');
+      const errorEl = moduleEl.querySelector<HTMLElement>('[data-image-error]');
+
+      if (imageEl && moduleEl.dataset.randomizeImage === 'true') {
+        const imageSources = getImageSources(moduleEl);
+        const nextImage = imageSources[getRefreshImageIndex(moduleEl, imageSources.length)];
+        if (nextImage) {
+          imageEl.src = nextImage;
+        }
+      }
+
+      if (minimizeButton && windowContent && minimizeIcon && windowEl) {
+        // Function to update the icon based on the minimized state
+        const updateIcon = () => {
+          if (windowEl.classList.contains('is-minimized')) {
+            minimizeIcon.textContent = '+';
+          } else {
+            minimizeIcon.textContent = '_';
+          }
+        };
+
+        // Set initial icon
+        updateIcon();
+
+        minimizeButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          windowEl.classList.toggle('is-minimized');
+          updateIcon();
+        });
+      }
+
+      // Handle image error
+      if (imageEl && errorEl) {
+        imageEl.onerror = () => {
+          errorEl.style.display = 'flex';
+        };
+      }
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPictureModules);
+  } else {
+    initPictureModules();
+  }
 </script>
