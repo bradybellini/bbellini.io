@@ -19,6 +19,7 @@ const newsLinks: Link[] = [
   { name: "WSJ", url: "https://wsj.com" },
   { name: "WaPo", url: "https://www.washingtonpost.com/" },
   { name: "NYT", url: "https://www.nytimes.com/" },
+  { name: "News9000", url: "https://news9000.com/" },
   { name: "Hacker News", url: "https://news.ycombinator.com/" },
   { name: "Techmeme", url: "https://techmeme.com" },
   { name: "Mediagazer", url: "https://www.mediagazer.com/" },
