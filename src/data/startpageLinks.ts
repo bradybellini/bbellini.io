@@ -57,11 +57,26 @@ export const primeLinkData = {
   ],
   personal: [
     { name: "ME", url: "https://bradybellini.com" },
-    { name: "Space Index", url: "https://spaceindex.io" },
-    { name: "Space Index Admin", url: "https://admin.spaceindex.io" },
     { name: "Proton", url: "https://mail.proton.me/" },
-    { name: "Raindrop.io", url: "https://app.raindrop.io/" },
-    { name: "Planetary Industries", url: "https://planetaryindustries.io/" }
+    { name: "Raindrop.io", url: "https://app.raindrop.io/" }
+  ],
+  // Ops tools first (tailnet only), then the public sites.
+  planetaryIndustries: [
+    { name: "Umami", url: "https://umami.planetaryindustries.space/teams/34a646db-5dd2-4f74-a38f-7ed5b67e51eb/websites" },
+    { name: "Status (Gatus)", url: "https://status.planetaryindustries.space" },
+    { name: "Servers (Beszel)", url: "https://servers.planetaryindustries.space" },
+    { name: "Mission Control", url: "https://alchemy-1.tail96a2cb.ts.net" },
+    { name: "Space Index", url: "https://spaceindex.io" },
+    { name: "Space Index Admin", url: "https://spaceindex.io/admin" },
+    { name: "Space Index API", url: "https://spaceindex.io/api" },
+    { name: "Space Index Docs", url: "https://docs.spaceindex.io" },
+    { name: "News9000", url: "https://news9000.com" },
+    { name: "GameJam.gg", url: "https://gamejam.gg" },
+    { name: "Cyberpunk.gg", url: "https://cyberpunk.gg" },
+    { name: "Coffee Roasters", url: "https://coffeeroasters.io" },
+    { name: "Official Merch", url: "https://officialmer.ch" },
+    { name: "Planetary Industries", url: "https://planetaryindustries.io" },
+    { name: "Fuck DRM", url: "https://fuckdrm.com" }
   ],
   other: [
     { name: "Unsplash", url: "https://unsplash.com/" },

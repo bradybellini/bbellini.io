@@ -26,6 +26,9 @@ import { primeLinkData as linkData } from "../../data/startpageLinks";
     
     <!-- Second column -->
     <div class="space-y-4">
+      <TerminalWindow title="PLANETARY INDUSTRIES" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
+        <LinkGroup links={linkData.planetaryIndustries} />
+      </TerminalWindow>
       <TerminalWindow title="TECH" titleClass="text-[8px] uppercase" contentClass="text-[8px]" windowClass="w-full">
         <LinkGroup links={linkData.tech} />
       </TerminalWindow>
