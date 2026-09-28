@@ -62,8 +62,6 @@ export const primeLinkData = {
   ],
   planetaryIndustries: [
     { name: "Space Index", url: "https://spaceindex.io" },
-    { name: "Space Index API", url: "https://spaceindex.io/api" },
-    { name: "Space Index Docs", url: "https://docs.spaceindex.io" },
     { name: "News9000", url: "https://news9000.com" },
     { name: "GameJam.gg", url: "https://gamejam.gg" },
     { name: "Cyberpunk.gg", url: "https://cyberpunk.gg" },
@@ -78,7 +76,9 @@ export const primeLinkData = {
     { name: "Status (Gatus)", url: "https://status.planetaryindustries.space" },
     { name: "Servers (Beszel)", url: "https://servers.planetaryindustries.space" },
     { name: "Mission Control", url: "https://alchemy-1.tail96a2cb.ts.net" },
-    { name: "Space Index Admin", url: "https://spaceindex.io/admin" }
+    { name: "Space Index Admin", url: "https://spaceindex.io/admin" },
+    { name: "Space Index API", url: "https://spaceindex.io/api" },
+    { name: "Space Index Docs", url: "https://docs.spaceindex.io" }
   ],
   other: [
     { name: "Unsplash", url: "https://unsplash.com/" },
