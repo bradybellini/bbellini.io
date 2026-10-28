@@ -1,13 +1,17 @@
 # Agent Instructions
 
 ## Build/Development Commands
-- `pnpm run dev` - Start development server
-- `pnpm run build` - Build for production  
-- `pnpm run preview` - Preview production build
-- `pnpm astro` - Run Astro CLI commands
+- `bun install` - Install dependencies (bun is the package manager; `bun.lock` is committed)
+- `bun run dev` - Start development server
+- `bun run build` - Build for production (`dist/server/entry.mjs` + `dist/client`)
+- `bun run preview` - Run the built standalone server (reads `HOST`/`PORT`, see `.env.example`)
+- `bun run check` - Typecheck, test and build
+- `bun run deploy` - Push `main` and release it on forge-1 (`forge/bin/release bbellini-io <sha>`)
+- `bun run astro` - Run Astro CLI commands
 
 ## Project Overview
-**Framework**: Astro with TypeScript, Tailwind CSS, and Cloudflare deployment
+**Framework**: Astro with TypeScript and Tailwind CSS, `@astrojs/node` in standalone mode
+**Hosting**: forge-1 as `pi-site@bbellini-io` on port 4015 behind Caddy and the Cloudflare Tunnel (the `forge` repo holds the Caddy block, port registry and Gatus checks). Every page is prerendered; the one on-demand route is `/api/weather`, which reads `TOMORROW_API_KEY` from the unit's env file (`~/.config/pi-sites/bbellini-io.env` on the box)
 **Styling**: Terminal-themed design with custom pixel fonts and CSS custom properties
 
 ## Code Conventions

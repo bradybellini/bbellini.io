@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { env } from 'cloudflare:workers';
 import { validateOrigin, createForbiddenResponse } from '../../lib/security';
 
 const TOMORROW = 'https://api.tomorrow.io/v4/weather/realtime';
@@ -19,12 +18,13 @@ interface TomorrowWeatherResponse {
   → { temperature: 72.4 }
 */
 export const GET: APIRoute = async ({ request, url }) => {
-  // Validate origin first
   if (!validateOrigin(request)) {
     return createForbiddenResponse();
   }
 
-  const API_KEY = env.TOMORROW_API_KEY;
+  // From the unit's EnvironmentFile on forge-1 (see .env.example). Unset
+  // fails closed: the widget shows ERR rather than the page failing.
+  const API_KEY = process.env.TOMORROW_API_KEY;
 
   if (!API_KEY) {
     return new Response('API key not configured', { status: 500 });

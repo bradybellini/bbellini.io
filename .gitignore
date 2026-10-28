@@ -7,20 +7,20 @@ dist/
 # dependencies
 node_modules/
 
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# bin/release on forge-1 builds into releases/<sha> and symlinks current, both
+# inside the working tree. Tailwind's content scan respects .gitignore, so
+# leaving these tracked makes every build harvest class names out of the
+# PREVIOUS release's compiled output.
+releases/
+current
 
-# environment variables
+# Runtime settings live in the box's env file; a local .env for astro dev must never be staged.
 .env
-.env.production
+.env.*
+!.env.example
 
 # macOS-specific files
 .DS_Store
 
 # jetbrains setting folder
 .idea/
-
-.wrangler/
