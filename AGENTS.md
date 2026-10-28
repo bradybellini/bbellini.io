@@ -10,7 +10,7 @@
 
 ## Project Overview
 **Framework**: Astro with TypeScript and Tailwind CSS, `@astrojs/node` in standalone mode
-**Hosting**: forge-1 as `pi-site@bbellini-io` on port 4015 behind Caddy and the Cloudflare Tunnel (the `forge` repo holds the Caddy block, port registry and Gatus checks). Every page is prerendered; the one on-demand route is `/api/weather`, which reads `TOMORROW_API_KEY` from the unit's env file (`~/.config/pi-sites/bbellini-io.env` on the box)
+**Hosting**: forge-1 as `pi-site@bbellini-io` on port 4015 behind Caddy and the Cloudflare Tunnel (the `forge` repo holds the Caddy block, port registry and Gatus checks). Every page is prerendered and nothing runs on demand: the header's weather widget asks Open-Meteo (no key) from the browser, through the pure helpers in `src/lib/weather.ts`
 **Styling**: Terminal-themed design with custom pixel fonts and CSS custom properties
 
 ## Code Conventions

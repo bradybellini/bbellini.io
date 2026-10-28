@@ -2,21 +2,11 @@
 import node from '@astrojs/node';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, passthroughImageService } from 'astro/config';
-import { loadEnv } from 'vite';
-
-// Dev reads .env here explicitly: /api/weather reads process.env, and
-// relying on the launcher to populate it is fragile (bun's node shim for a
-// package bin does not, Astro's dev daemon does, an IDE runner may not).
-// Real environment variables win; in production there is no .env and
-// systemd's EnvironmentFile provides everything.
-const fileEnv = loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), '');
-for (const [key, value] of Object.entries(fileEnv)) {
-  process.env[key] ??= value;
-}
-
 export default defineConfig({
   site: 'https://bbellini.io',
-  // Every page is prerendered; the one on-demand route is /api/weather.
+  // Every page is prerendered; the weather widget talks to Open-Meteo from
+  // the browser, so there is no on-demand route. The adapter's standalone
+  // server is still what serves the built files on forge-1.
   output: 'static',
   // Standalone: the built entry is its own HTTP server, bound from HOST/PORT
   // in the systemd EnvironmentFile on forge-1. It also serves dist/client, so

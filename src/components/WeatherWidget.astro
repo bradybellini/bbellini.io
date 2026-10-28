@@ -38,11 +38,10 @@ const defaultZip = "10001";
 </div>
 
 <script>
-  interface WeatherResponse {
-    temperature: number;
-  }
+  import { forecastUrl, geocodeUrl, readCoordinates, readTemperature } from "../lib/weather";
 
-  interface CachedWeather extends WeatherResponse {
+  interface CachedWeather {
+    temperature: number;
     timestamp: number;
   }
 
@@ -73,9 +72,27 @@ const defaultZip = "10001";
       tempSection.classList.remove("hidden");
     }
 
+    async function fetchJson(url: string): Promise<unknown> {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`${res.status} from ${url}`);
+      return res.json();
+    }
+
+    // Open-Meteo, straight from the browser: the ZIP to coordinates, then the
+    // current temperature (src/lib/weather.ts).
+    async function currentTemperature(zip: string): Promise<number> {
+      const coordinates = readCoordinates(await fetchJson(geocodeUrl(zip)));
+      if (!coordinates) throw new Error(`no place for ${zip}`);
+      const temperature = readTemperature(
+        await fetchJson(forecastUrl(coordinates.latitude, coordinates.longitude))
+      );
+      if (temperature === null) throw new Error("no temperature in the answer");
+      return temperature;
+    }
+
     async function fetchWeather(zip: string) {
       tempElement.textContent = "...";
-      
+
       // Check localStorage cache first (10 minute TTL)
       const cacheKey = `weather:${zip}`;
       const cached = localStorage.getItem(cacheKey);
@@ -94,20 +111,17 @@ const defaultZip = "10001";
           localStorage.removeItem(cacheKey);
         }
       }
-      
+
       // Cache miss or expired - fetch fresh data
       try {
-        const res = await fetch(`/api/weather?zip=${zip}`);
-        if (!res.ok) throw new Error();
-        const { temperature } = await res.json() as WeatherResponse;
-        if (typeof temperature !== "number") throw new Error();
-        
+        const temperature = await currentTemperature(zip);
+
         // Cache the result
         localStorage.setItem(cacheKey, JSON.stringify({
           temperature,
           timestamp: Date.now()
         }));
-        
+
         tempElement.textContent = Math.round(temperature) + "°F";
         showTemperature();
       } catch {
