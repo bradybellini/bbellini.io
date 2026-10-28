@@ -1,5 +1,21 @@
 import { describe, expect, test } from 'bun:test';
-import { forecastUrl, geocodeUrl, readCoordinates, readTemperature } from './weather';
+import { forecastUrl, geocodeUrl, isZip, readCoordinates, readTemperature } from './weather';
+
+describe('isZip', () => {
+  test('accepts five digits only', () => {
+    expect(isZip('10001')).toBe(true);
+    expect(isZip('00501')).toBe(true);
+  });
+
+  test('rejects a partial entry, letters, or a ZIP+4', () => {
+    expect(isZip('902')).toBe(false);
+    expect(isZip('1000')).toBe(false);
+    expect(isZip('100011')).toBe(false);
+    expect(isZip('10001-1234')).toBe(false);
+    expect(isZip('Seattle')).toBe(false);
+    expect(isZip('')).toBe(false);
+  });
+});
 
 describe('request URLs', () => {
   test('geocodes the ZIP as a US postal code, one match', () => {

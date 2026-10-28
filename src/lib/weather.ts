@@ -2,6 +2,12 @@
 // (CORS *). Two calls: the ZIP to coordinates, then the current temperature.
 // The widget calls these from the page; nothing on the server is involved.
 
+/** A US ZIP as the widget accepts it: five digits, nothing else. The geocoder
+ * matches fuzzily, so a partial entry would name some other place. */
+export function isZip(zip: string): boolean {
+  return /^\d{5}$/.test(zip);
+}
+
 export function geocodeUrl(zip: string): string {
   const q = new URLSearchParams({ name: zip, count: '1', countryCode: 'US' });
   return `https://geocoding-api.open-meteo.com/v1/search?${q}`;

@@ -38,7 +38,7 @@ const defaultZip = "10001";
 </div>
 
 <script>
-  import { forecastUrl, geocodeUrl, readCoordinates, readTemperature } from "../lib/weather";
+  import { forecastUrl, geocodeUrl, isZip, readCoordinates, readTemperature } from "../lib/weather";
 
   interface CachedWeather {
     temperature: number;
@@ -90,8 +90,19 @@ const defaultZip = "10001";
       return temperature;
     }
 
+    // The ZIP whose lookup is in flight: the submit button fires blur and
+    // then click, and both would otherwise start the same two requests.
+    let loading: string | null = null;
+
     async function fetchWeather(zip: string) {
+      if (loading === zip) return;
       tempElement.textContent = "...";
+
+      if (!isZip(zip)) {
+        tempElement.textContent = "ERR";
+        showTemperature();
+        return;
+      }
 
       // Check localStorage cache first (10 minute TTL)
       const cacheKey = `weather:${zip}`;
@@ -113,6 +124,7 @@ const defaultZip = "10001";
       }
 
       // Cache miss or expired - fetch fresh data
+      loading = zip;
       try {
         const temperature = await currentTemperature(zip);
 
@@ -127,6 +139,8 @@ const defaultZip = "10001";
       } catch {
         tempElement.textContent = "ERR";
         showTemperature();
+      } finally {
+        loading = null;
       }
     }
 
