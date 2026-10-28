@@ -4,13 +4,7 @@
     "types": [
       "bun",
       "node"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    }
+    ]
   },
   "include": [
     ".astro/types.d.ts",
@@ -18,7 +12,6 @@
   ],
   "exclude": [
     "node_modules",
-    "dist",
-    "releases"
+    "dist"
   ]
 }

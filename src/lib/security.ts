@@ -1,35 +1,41 @@
 /**
- * Validates that the request comes from an allowed origin
- * Checks both Origin and Referer headers for security
+ * Whether a request to /api/weather comes from one of this site's own pages.
+ * The published hosts, `astro dev` (4321) and the standalone server run from
+ * `bun run preview` (4015, the port forge-1 uses) are allowed.
  */
-export function validateOrigin(request: Request): boolean {
-  const allowedOrigins = [
-    'https://bbellini.io',
-    'https://www.bbellini.io',
-    'http://localhost:4321',  // Astro dev server
-    'http://127.0.0.1:4321'   // Alternative localhost
-  ];
+const allowedOrigins = new Set([
+  'https://bbellini.io',
+  'https://www.bbellini.io',
+  'http://localhost:4321',
+  'http://127.0.0.1:4321',
+  'http://localhost:4015',
+  'http://127.0.0.1:4015',
+]);
 
+/** The origin a URL names, or null when it is not a URL at all. */
+function originOf(url: string): string | null {
+  try {
+    return new URL(url).origin;
+  } catch {
+    return null;
+  }
+}
+
+export function validateOrigin(request: Request): boolean {
   const origin = request.headers.get('origin');
   const referer = request.headers.get('referer');
 
-  // Check origin header first (more reliable)
-  if (origin && allowedOrigins.includes(origin)) {
-    return true;
+  // A browser sends Origin on a cross-origin request, so when it is present
+  // it decides on its own: a foreign origin never falls through to Referer.
+  if (origin !== null) {
+    return allowedOrigins.has(origin);
   }
-
-  // Fallback to referer header
-  if (referer && allowedOrigins.some(allowed => referer.startsWith(allowed))) {
-    return true;
+  if (referer !== null) {
+    const refererOrigin = originOf(referer);
+    return refererOrigin !== null && allowedOrigins.has(refererOrigin);
   }
-
-  // Allow same-origin requests (when origin header is missing)
-  if (!origin && !referer) {
-    // This is likely a same-origin request
-    return true;
-  }
-
-  return false;
+  // Neither header: a same-origin navigation, or a client that sends none.
+  return true;
 }
 
 /**

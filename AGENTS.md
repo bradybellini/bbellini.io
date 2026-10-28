@@ -7,7 +7,6 @@
 - `bun run preview` - Run the built standalone server (reads `HOST`/`PORT`, see `.env.example`)
 - `bun run check` - Typecheck, test and build
 - `bun run deploy` - Push `main` and release it on forge-1 (`forge/bin/release bbellini-io <sha>`)
-- `bun run astro` - Run Astro CLI commands
 
 ## Project Overview
 **Framework**: Astro with TypeScript and Tailwind CSS, `@astrojs/node` in standalone mode

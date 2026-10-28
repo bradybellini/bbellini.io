@@ -5,14 +5,13 @@
   "private": true,
   "packageManager": "bun@1.4.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "bun --bun astro dev",
     "build": "astro build",
     "preview": "bun ./dist/server/entry.mjs",
     "check": "bun run typecheck && bun run test && bun run build",
     "typecheck": "astro check",
     "test": "bun test src/",
-    "deploy": "git push origin main && ssh forge@forge-1 forge/bin/release bbellini-io \"$(git rev-parse main)\"",
-    "astro": "astro"
+    "deploy": "git push origin main && ssh forge@forge-1 forge/bin/release bbellini-io \"$(git rev-parse main)\""
   },
   "dependencies": {
     "@astrojs/node": "^11.1.9",
