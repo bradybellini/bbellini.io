@@ -5,7 +5,7 @@
   "private": true,
   "packageManager": "bun@1.4.0",
   "scripts": {
-    "dev": "bun --bun astro dev",
+    "dev": "astro dev",
     "build": "astro build",
     "preview": "bun ./dist/server/entry.mjs",
     "check": "bun run typecheck && bun run test && bun run build",

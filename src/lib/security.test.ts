@@ -39,5 +39,6 @@ describe('validateOrigin', () => {
 
   test('rejects a Referer that is not a URL', () => {
     expect(check({ referer: 'bbellini.io' })).toBe(false);
+    expect(check({ referer: 'https://bbellini.io:99999/' })).toBe(false);
   });
 });
